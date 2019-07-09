@@ -34,16 +34,25 @@ const uploadCloud = require("../config/cloudinary.js")
     Post
   .find()
   .then(postC =>{
-    res.render('index',{postC});
+    res.render('index',{user:req.user, postC:postC} );
   }).catch((err) => {
     console.log(err)
   })
 })
 
 
-router.get("/profile", ensureLogin.ensureLoggedIn(), (req, res, next) => {
-  res.render("profile", { user: req.user });
+
+router.get('/profile', ensureLogin.ensureLoggedIn(),(req, res, next) => {
+  console.log(req.user)
+      res.render('profile', {user: req.user});
+    
 });
+
+// router.get("/profile", , (req, res, next) => {
+//   User
+//   .findById(req.user._id)
+//   res.render("profile", { user: req.user });
+// });
 // 
 router.post("/profile-edit/:id", ensureLogin.ensureLoggedIn(), uploadCloud.single('picture'),(req, res, next) => {
   if (req.params.id === req.user._id)
