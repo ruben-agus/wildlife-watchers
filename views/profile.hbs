@@ -1,0 +1,15 @@
+<h1>Bienvenido a tu página de perfil, {{user.username}}</h1>
+
+<p>Tu foto de perfil:</p>
+<img src="{{user.picture}} " alt="" srcset="">
+
+<form action="/profile-edit/{{user._id}}" method="POST" id="form-container" enctype="multipart/form-data">
+
+  <label>Cambiar foto de perfil</label>
+  <input type="file" name="picture">
+  <button>Cambiar foto</button>
+</form>
+
+<p>Número de mensajes en el foro:{{user.postNum}} </p>
+
+<p>Gracias a tus aportes has alcanzado el nivel:{{user.skill}}</p>

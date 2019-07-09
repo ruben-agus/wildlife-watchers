@@ -9,7 +9,6 @@ const mongoose     = require('mongoose');
 const logger       = require('morgan');
 const path         = require('path');
 
-let petardas = "muchas"
 const session    = require("express-session");
 const MongoStore = require('connect-mongo')(session);
 const flash      = require("connect-flash");
@@ -62,7 +61,7 @@ hbs.registerHelper('ifUndefined', (value, options) => {
   
 
 // default value for title local
-app.locals.title = 'Express - Generated with IronGenerator';
+app.locals.title = 'Wildlife Watchers Community';
 
 
 // Enable authentication using session + passport
