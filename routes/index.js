@@ -61,30 +61,53 @@ router.post(
 )
   
 
+// uploadCloud.single("photo"),
 
+router.get("/create-post", (req, res, next) => {
 
-router.get("/create-post", uploadCloud.single("photo"), (req, res, next) => {
   res.render("create-post");
 });
 
-router.post("/create-post", (req, res, next) => {
-  const path = req.file.url;
-  PostBlog.create({
-    title: req.body.title,
+
+// router.post("/create-post", (req, res, next) => {
+//   User.find({_id: req.body.userId})
+  
+//     .then(postNew => {
+//       res.render("create-post", {postNew});
+//     })
+//     .catch(err => {
+//       console.log(err);
+//     });
+// });
+
+
+
+router.post("/post-list", (req, res, next) => {
+  
+  // const path = req.file.url;
+  // const oriName = req.file.originalname;
+
+   Post.create({
+   title: req.body.title,
     content: req.body.content,
-    authorId: req.user._id,
-    postImg: {
-      url: path,
-      originalName: req.file.originalname
-    }
+  //   // authorId: req.user._id,
+  //   postImg: {
+  //     url: path,
+  //     originalName: oriName
+    // }
   })
     .then(postNew => {
-      res.redirect("create-post");
+      res.redirect("/post-list");
     })
     .catch(err => {
       console.log(err);
     });
 });
+
+
+
+
+
 
 router.get("/edit-post/:id", ensureLogin.ensureLoggedIn(), (req, res, next) => {
   Post.find({ _id: req.params.id })
@@ -144,7 +167,10 @@ router.get("/animal-list", (req, res, next) => {
 });
 
 router.get("/map", (req, res, next) => {
-  res.render("map");
+  Animal.find()
+  .then(animal => {
+    res.render("map", animal)
+  })
 });
 
 module.exports = router;
