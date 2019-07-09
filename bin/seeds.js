@@ -58,7 +58,7 @@ let exampleAnimal = {
     originalName: "coyotaco.jpg"
   },
   location: { type: "Point" },
-  coordinates: [24, 24]} 
+  coordinates: [24, 24]
 };
 
 // let examplePost = {
