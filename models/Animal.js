@@ -3,9 +3,10 @@ const Schema   = mongoose.Schema;
 
 const animalSchema = new Schema({
   name: String,
-  picture: String,
+  description: String,
+  animalImg: {type:Schema.Types.ObjectId, ref:"Post"},
+  location:{type:{type:String}, coordinates:[Number] } 
   
-
 }, {
   timestamps: {
     createdAt: 'created_at',
@@ -13,5 +14,7 @@ const animalSchema = new Schema({
   }
 });
 
-const User = mongoose.model('Animal', animalSchema);
+animalSchema.index({ location: "2dsphere" });
+
+const Animal = mongoose.model('Animal', animalSchema);
 module.exports = Animal;

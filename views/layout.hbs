@@ -5,15 +5,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>{{title}}</title>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key={{GOOGLEMAPSAPIKEY}}&libraries=places"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css">
   <link rel="stylesheet" href="/stylesheets/style.css" />
 </head>
 <body>
 
   <nav>
     <a href="/">Home</a>
-    <a href="/auth/login">Login</a>
-    <a href="/auth/signup">Signup</a>
-    <a href="/auth/logout">Logout</a>
+    {{#unless user}} 
+    <a href="/auth/login">Iniciar Sesión</a>
+    <a href="/auth/signup">Registrarse</a>
+    {{/unless}} 
+    {{#if user}}
+    <a href="/profile">Perfil</a>
+    {{/if}} 
+    <a href="/map">Mapa</a>
+    <a href="/animal-list">Animalillos</a>
+    <a href="/post-list">Foro</a>
+    {{#if user}}
+    <a href="/auth/logout">Cerrar Sesión</a>
+    {{/if}}
+
+
+    {{#if user}}
+    <span>User: {{user.username}} | {{user.role}}</span> <img src="{{user.picture}}" alt="" srcset=""> 
+    {{/if}}
+ 
   </nav>
 
   {{{body}}}

@@ -4,7 +4,16 @@ const Schema   = mongoose.Schema;
 const userSchema = new Schema({
   username: String,
   password: String,
-  picture: String
+  picture: {
+    url:String,
+    originalName: String
+  },
+  skill:{
+    type: String,
+    enum:["Novato", "Descubridor", "Experto", "Jacques Costeau"],
+    default:"Novato"
+  },
+  postNum:0
 }, {
   timestamps: {
     createdAt: 'created_at',

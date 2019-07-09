@@ -1,66 +1,56 @@
 * {
- box-sizing: border-box; 
-} 
+  box-sizing: border-box; }
 
 html,
 body {
   margin: 0;
   padding: 0;
-  font: 10px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
+  font: 10px "Lucida Grande", Helvetica, Arial, sans-serif; }
 
 body {
-  padding: 2rem;
-}
+  padding: 2rem; }
 
 a {
   color: #00B7FF;
-  transition: all 0.5s;
-} 
+  transition: all 0.5s; }
 
 a:hover {
-  color: green;  
-}  
+  color: green; }
 
 nav {
   margin: 1.4rem 1.4rem;
   font-size: 1.6rem;
-  font-weight: bold;
-}
+  font-weight: bold; }
 
 nav a::after {
   margin-left: 1rem;
-  content: "|";
-}
+  content: "|"; }
 
 h1 {
   margin: 1rem 1.5rem;
   font-size: 2rem;
-  font-weight: bold;
-}
+  font-weight: bold; }
 
 .random-animal {
   display: flex;
   max-width: 95rem;
   justify-content: left;
-  margin: 1rem 1.5rem;
-}
+  margin: 1rem 1.5rem; }
 
 .random-animal-info {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: right;
-  margin-left: 1.5rem;
-}
+  margin-left: 1.5rem; }
 
 .random-animal-info h2 {
   font-size: 1.8rem;
   margin-bottom: 1rem;
-  font-weight: bold;
-}
+  font-weight: bold; }
 
-.random-animal-info p{
+.random-animal-info p {
   font-size: 1.3rem;
-  margin-bottom: 0.5rem;
-} 
+  margin-bottom: 0.5rem; }
+
+/*# sourceMappingURL=style.css.map */
