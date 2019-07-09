@@ -1,7 +1,7 @@
 <h1>Bienvenido a tu página de perfil, {{user.username}}</h1>
 
 <p>Tu foto de perfil:</p>
-<img src="{{user.picture}} " alt="" srcset="">
+<img src="{{user.picture.url}} " alt="" srcset="">
 
 <form action="/profile-edit/{{user._id}}" method="POST" id="form-container" enctype="multipart/form-data">
 

@@ -3,106 +3,131 @@
 // To execute this seed, run from the root of the project
 // $ node bin/seeds.js
 
+require('dotenv').config();
+
+
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const User = require("../models/User");
 const Animal = require("../models/Animal");
-const Post = require("../models/Post")
+const Post = require("../models/Post");
+const Comment = require("../models/Comment");
 
 const bcryptSalt = 10;
 
+
 mongoose
-  .connect('mongodb://localhost/iberian-wild-life', {useNewUrlParser: true})
+  .connect(process.env.BBDD_URL, { useNewUrlParser: true })
   .then(x => {
-    console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
+    console.log(
+      `Connected to Mongo! Database name: "${x.connections[0].name}"`
+    );
   })
   .catch(err => {
-    console.error('Error connecting to mongo', err)
+    console.error("Error connecting to mongo", err);
   });
 
-let users = [
+let exampleUsers = [
   {
-    username: "alice",
-    password: bcrypt.hashSync("alice", bcrypt.genSaltSync(bcryptSalt)),
-    // picture:{
-    //   url:String,
-    //   originalName: url
-    // },
+    username: "Alice",
+    password: bcrypt.hashSync("1234", bcrypt.genSaltSync(bcryptSalt)),
+    picture: {
+      url: "https://pickaface.net/gallery/avatar/MackennaMeadows542e92aa07839.png",
+      originalName: "loquesea"
+    },
     skill: "Novato",
-    postNum:0
+    postNum: 0
   },
   {
-    username: "bob",
-    password: bcrypt.hashSync("bob", bcrypt.genSaltSync(bcryptSalt)),
+    username: "Bob",
+    password: bcrypt.hashSync("4444", bcrypt.genSaltSync(bcryptSalt)),
+    picture: {
+      url: "https://pickaface.net/gallery/avatar/unr_mrsbob_180716_0154_16ff.png",
+      originalName: "whatever"
+    },
+    skill: "Experto",
+    postNum: 0
   }
-]
+];
 
-let animal = [
-  {
-    name: "coyote",
-    description: "similar a un lobo peor en achuchable",
-  }
-]
+let exampleAnimal = {
+  name: "Coyote",
+  description: "Similar a un lobo pero adepto a arrancarte la cara",
+  animalImg: {
+    url:String,
+    originalName: String
+  },
+  location: { type: "Point" },
+  coordinates: [24, 24]
+};
 
-let Post =[{
-  title: "Esto es una prueba",
-  content: "Esta foto la saqué ayer"
-}]
+// let examplePost = {
+//   authorId: { type: Schema.Types.ObjectId, ref: "User" },
+//   postImg: {
+//     url: "https://i.ytimg.com/vi/XOj6xGKEsUw/maxresdefault.jpg",
+//     originalName: "coyotaco.jpg"
+//   },
+//   title: "Esto es un coyote",
+//   content: "Los coyotes os comen desde el cogote",
+//   comments: { type: Schema.Types.ObjectId, ref: "Comment" }
+// };
 
+// let exampleComment = {
+//   authorId: { type: Schema.Types.ObjectId, ref: "User" },
+//   content: "QUE PEDASO DE COYOTE, CABESA"
+// };
 
-
-
-
-User.deleteMany()
-.then(() => {
-  return User.create(users)
-})
-.then(usersCreated => {
-  console.log(`${usersCreated.length} users created with the following id:`);
-  console.log(usersCreated.map(u => u._id));
-})
-.then(() => {
-  // Close properly the connection to Mongoose
-  mongoose.disconnect()
-})
-.catch(err => {
-  mongoose.disconnect()
-  throw err
-})
-
-
-Animal.deleteMany()
-.then(() => {
-  return animal.create(animals)
-})
-.then(animalsCreated => {
-  console.log(`${animalsCreated.length} animals created with the following id:`);
-  console.log(animalsCreated.map(a => a._id));
-})
-.then(() => {
-  // Close properly the connection to Mongoose
-  mongoose.disconnect()
-})
-.catch(err => {
-  mongoose.disconnect()
-  throw err
-})
+User.remove()
+  .then(x => {
+    return Comment.remove();
+  })
+  .then(x => {
+    return Post.remove();
+  })
+  .then(x => {
+    return Animal.remove();
+  })
+  .then(x => {
+    let userId;
+    let userBId;
 
 
-
-Post.deleteMany()
-.then(() => {
-  return Post.create(posts)
-})
-.then(postsCreated => {
-  console.log(`${postsCreated.length} posts created with the following id:`);
-  console.log(postsCreated.map(u => u._id));
-})
-.then(() => {
-  // Close properly the connection to Mongoose
-  mongoose.disconnect()
-})
-.catch(err => {
-  mongoose.disconnect()
-  throw err
-})
+    User.create(exampleUsers)
+      .then(createdUsers => {
+        userId = createdUsers[0]._id;
+        userBId = createdUsers[1]._id;
+        return Comment.create([
+          { content: '"QUE PEDASO DE COYOTE, CABESA"', author: userId } , 
+        ]);
+      })
+      .then(createdComment => {
+        return Post.create([
+          {
+            title: "Esto es un coyote",
+            content: "Los coyotes os comen desde el cogote",
+            author: userBId,
+            postImg: {
+              url: "https://i.ytimg.com/vi/XOj6xGKEsUw/maxresdefault.jpg",
+              originalName: "coyotaco.jpg"
+            },
+            comments:[createdComment[0]._id] 
+          }
+        ]);
+      })
+      .then(createdPost => {
+        Post.find()
+          .populate("author")
+          .populate({
+            path: "comments",
+            populate: {
+              path: "author",
+              model: "User"
+            }
+          })
+          .then(popPost => {
+            Animal.create(exampleAnimal)
+            console.log(JSON.stringify(popPost));
+            process.exit(0);
+          });
+      });
+  });
