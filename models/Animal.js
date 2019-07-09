@@ -16,5 +16,5 @@ const animalSchema = new Schema({
 
 animalSchema.index({ location: "2dsphere" });
 
-const User = mongoose.model('Animal', animalSchema);
+const Animal = mongoose.model('Animal', animalSchema);
 module.exports = Animal;

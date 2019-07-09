@@ -4,8 +4,13 @@ const User = require("../models/User");
 const Post = require("../models/Post");
 const Animal = require("../models/Animal");
 const Comment = require("../models/Comment");
-const ensureLogin =
-  /* GET home page */
+// Add passport 
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
+
+const ensureLogin = require("connect-ensure-login");  
+
+/* GET home page */
   router.get("/", (req, res, next) => {
     res.render("index");
     Animal
@@ -38,11 +43,11 @@ const ensureLogin =
 //   })
 // });
 
-router.get("/profile", ensureLoggedIn(), (req, res, next) => {
+router.get("/profile", ensureLogin.ensureLoggedIn(), (req, res, next) => {
   res.render("profile", { user: req.user });
 });
 
-router.post("/profile-edit/:id", ensureLoggedIn(), (req, res, next) => {
+router.post("/profile-edit/:id", ensureLogin.ensureLoggedIn(), (req, res, next) => {
   if (req.params.id === req.user._id)
     User.findById({ _id: req.params.id })
       .then(user => {
@@ -71,7 +76,7 @@ router.post("/postcreate", (req, res, next) => {
     });
 });
 
-router.get("/edit-post/:id", ensureLoggedIn(), (req, res, next) => {
+router.get("/edit-post/:id", ensureLogin.ensureLoggedIn(), (req, res, next) => {
   Post.find({ _id: req.params.id })
     // .populate('author')
     .then(postDetail => {
@@ -82,7 +87,7 @@ router.get("/edit-post/:id", ensureLoggedIn(), (req, res, next) => {
     });
 });
 
-router.post("/edit-post/:id", ensureLoggedIn(), (req, res, next) => {
+router.post("/edit-post/:id", ensureLogin.ensureLoggedIn(), (req, res, next) => {
   if (req.params.id === req.post.id)
     Post.find({ _id: req.params.id })
       // .populate('author')

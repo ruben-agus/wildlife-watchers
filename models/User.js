@@ -9,6 +9,7 @@ const userSchema = new Schema({
     originalName: String
   },
   skill:{
+    type: String,
     enum:["Novato", "Descubridor", "Experto", "Jacques Costeau"],
     default:"Novato"
   },
