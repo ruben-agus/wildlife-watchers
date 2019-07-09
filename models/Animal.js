@@ -5,7 +5,7 @@ const animalSchema = new Schema({
   name: String,
   description: String,
   animalImg: {type:Schema.Types.ObjectId, ref:"Post"},
-  location:{type:{type:String}, coordinates:[Number] } 
+  // location:{type:{type:String}, coordinates:[Number] } 
   
 }, {
   timestamps: {
