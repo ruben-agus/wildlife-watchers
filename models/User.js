@@ -13,7 +13,10 @@ const userSchema = new Schema({
     enum:["Novato", "Descubridor", "Experto", "Jacques Costeau"],
     default:"Novato"
   },
-  postNum:0
+  postNum:{
+    type: Number,
+    default:0
+  }
 }, {
   timestamps: {
     createdAt: 'created_at',

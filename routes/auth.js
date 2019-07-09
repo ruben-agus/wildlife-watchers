@@ -26,7 +26,8 @@ router.get("/signup", (req, res, next) => {
 router.post("/signup", uploadCloud.single('picture'),(req, res, next) => {
   const username = req.body.username;
   const password = req.body.password;
-  const picture = req.file.url;
+  const imageAvatar = req.file.url;
+  const imageAvName = req.file.filename;
   if (username === "" || password === "") {
     res.render("auth/signup", { message: "Indicate username and password" });
     return;
@@ -43,7 +44,11 @@ router.post("/signup", uploadCloud.single('picture'),(req, res, next) => {
 
     const newUser = new User({
       username,
-      password: hashPass
+      password: hashPass,
+      picture: {
+        url:imageAvatar,
+        originalName: imageAvName
+      },
     });
 
     newUser.save()
