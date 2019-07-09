@@ -37,6 +37,10 @@ h1 {
   justify-content: left;
   margin: 1rem 1.5rem; }
 
+#map {
+  width: 70vw;
+  height: 70vh; }
+
 .random-animal-info {
   display: flex;
   flex-direction: column;
