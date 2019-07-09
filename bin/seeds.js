@@ -54,8 +54,8 @@ let exampleAnimal = {
   name: "Coyote",
   description: "Similar a un lobo pero adepto a arrancarte la cara",
   animalImg: {
-    url:String,
-    originalName: String
+    url: "https://i.ytimg.com/vi/XOj6xGKEsUw/maxresdefault.jpg",
+    originalName: "coyotaco.jpg"
   },
   location: { type: "Point" },
   coordinates: [24, 24]
@@ -125,9 +125,10 @@ User.remove()
             }
           })
           .then(popPost => {
-            Animal.create(exampleAnimal)
+            Animal.create(exampleAnimal).then(createdAnimal => {
             console.log(JSON.stringify(popPost));
             process.exit(0);
+            }) 
           });
       });
   });
