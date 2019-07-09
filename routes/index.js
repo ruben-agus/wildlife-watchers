@@ -10,9 +10,9 @@ const LocalStrategy = require("passport-local").Strategy;
 
 const ensureLogin = require("connect-ensure-login");
 const uploadCloud = require("../config/cloudinary.js");
+const multer = require("multer");
 
 /* GET home page */
-//   router.get("/", (req, res, next) => {
 
 router.get("/", (req, res, next) => {
   //    Animal.find({})
@@ -38,12 +38,7 @@ router.get("/profile", ensureLogin.ensureLoggedIn(), (req, res, next) => {
   res.render("profile", { user: req.user });
 });
 
-// router.get("/profile", , (req, res, next) => {
-//   User
-//   .findById(req.user._id)
-//   res.render("profile", { user: req.user });
-// });
-//
+
 router.post(
   "/profile-edit/:id",
   ensureLogin.ensureLoggedIn(),
@@ -51,58 +46,48 @@ router.post(
   (req, res, next) => {console.log(req.file)
 
     User
-    .findByIdAndUpdate(req.user._id, {
+    .findByIdAndUpdate(req.user._id, 
+      {
       picture: {url: req.file.url }
-    },{new:true}).then(updatedUser => {
+    },
+    {new:true})
+    .then(updatedUser => {
       res.render("profile", {user: updatedUser});
-    });
-          
-  }
-)
+    });       
+  })
   
+ 
 
-// uploadCloud.single("photo"),
-
-router.get("/create-post", (req, res, next) => {
+router.get("/create-post", uploadCloud.single("image"),(req, res, next) => {
 
   res.render("create-post");
 });
 
 
-// router.post("/create-post", (req, res, next) => {
-//   User.find({_id: req.body.userId})
+
+
+router.post("/post-list", uploadCloud.single("image"), (req, res, next) => {
   
-//     .then(postNew => {
-//       res.render("create-post", {postNew});
-//     })
-//     .catch(err => {
-//       console.log(err);
-//     });
-// });
-
-
-
-router.post("/post-list", (req, res, next) => {
-  
-  // const path = req.file.url;
-  // const oriName = req.file.originalname;
-
-   Post.create({
+   Post
+   .create({
+    
    title: req.body.title,
-    content: req.body.content,
-  //   // authorId: req.user._id,
-  //   postImg: {
-  //     url: path,
-  //     originalName: oriName
-    // }
+   content: req.body.content,
+   postImg: req.file.url,
+   
   })
-    .then(postNew => {
-      res.redirect("/post-list");
-    })
-    .catch(err => {
-      console.log(err);
-    });
+  .then(postNew => {
+    res.redirect("/post-list");
+  })
+  .catch(err => {
+    console.log(err);
+  });
 });
+//   // authorId: req.user._id,
+//   postImg: {
+//     url: path,
+//     originalName: oriName
+  // }
 
 
 

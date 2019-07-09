@@ -1,7 +1,13 @@
 Welcome to the wildlife forum association
 pribando pribando
 {{#each post}}
-<div>{{this.title}}</div>
+<div><ul>
+  <li>{{this}}</li>
+  <li>{{this.content}}</li>
+  <li><img src="{{this.postImg}}" alt=""></li>
+
+</ul>
+</div>
 {{/each}}
 
 
