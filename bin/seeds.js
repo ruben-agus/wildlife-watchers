@@ -57,8 +57,8 @@ let exampleAnimal = {
     url: "https://i.ytimg.com/vi/XOj6xGKEsUw/maxresdefault.jpg",
     originalName: "coyotaco.jpg"
   },
-  location: { type: "Point" },
-  coordinates: [24, 24]
+  location: { type: "Point",
+  coordinates: [24, 24]} 
 };
 
 // let examplePost = {
