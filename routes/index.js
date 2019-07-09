@@ -22,28 +22,37 @@ const uploadCloud = require("../config/cloudinary.js")
 
   
    router.get('/', (req, res, next)=> {
-     Animal.find({})
-     .then(animal => {
-      console.log(animal);
-      res.render("index")
-     })
-     .catch((err) => {
-      console.log(err)
+  //    Animal.find({})
+  //    .then(animal => {
+  //     console.log(animal);
+  //     res.render("index")
+  //    })
+  //    .catch((err) => {
+  //     console.log(err)
+  // })
+  //  })
+    Post
+  .find()
+  .then(postC =>{
+    res.render('index',{user:req.user, postC:postC} );
+  }).catch((err) => {
+    console.log(err)
   })
-   })
-//     Post
-//   .find()
-//   .then(post=>{
-//     res.render('index',{post},'animaloftheday',{animal});
-//   }).catch((err) => {
-//     console.log(err)
-//   })
-// })
+})
 
 
-router.get("/profile", ensureLogin.ensureLoggedIn(), (req, res, next) => {
-  res.render("profile", { user: req.user });
+
+router.get('/profile', ensureLogin.ensureLoggedIn(),(req, res, next) => {
+  console.log(req.user)
+      res.render('profile', {user: req.user});
+    
 });
+
+// router.get("/profile", , (req, res, next) => {
+//   User
+//   .findById(req.user._id)
+//   res.render("profile", { user: req.user });
+// });
 // 
 router.post("/profile-edit/:id", ensureLogin.ensureLoggedIn(), uploadCloud.single('picture'),(req, res, next) => {
   if (req.params.id === req.user._id)

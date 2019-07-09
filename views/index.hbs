@@ -21,10 +21,10 @@
   </div>
 
   <div class="post-collection">
-    {{#each post}}
+    {{#each postC}}
     <div>
-      <h3>{{post.title}}</h3>
-      <img src="{{post.url}}" alt="">
+      <h3>{{this.title}}</h3>
+      <img src="{{this.postImg.url}}" alt="">
     </div>
     {{/each}}
   </div>
