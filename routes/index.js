@@ -22,23 +22,23 @@ const uploadCloud = require("../config/cloudinary.js")
 
   
    router.get('/', (req, res, next)=> {
-     Animal.find({})
-     .then(animal => {
-      console.log(animal);
-      res.render("index")
-     })
-     .catch((err) => {
-      console.log(err)
+  //    Animal.find({})
+  //    .then(animal => {
+  //     console.log(animal);
+  //     res.render("index")
+  //    })
+  //    .catch((err) => {
+  //     console.log(err)
+  // })
+  //  })
+    Post
+  .find()
+  .then(postC =>{
+    res.render('index',{postC});
+  }).catch((err) => {
+    console.log(err)
   })
-   })
-//     Post
-//   .find()
-//   .then(post=>{
-//     res.render('index',{post},'animaloftheday',{animal});
-//   }).catch((err) => {
-//     console.log(err)
-//   })
-// })
+})
 
 
 router.get("/profile", ensureLogin.ensureLoggedIn(), (req, res, next) => {

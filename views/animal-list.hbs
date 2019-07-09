@@ -2,5 +2,9 @@
 
 <ul>
   {{#each animal}}
-  <li>{{this.name}}, {{this.description}}, {{this.animalImg}}, {{this.location}}    </li> 
+  <li>{{this.name}}</li>
+  <li>{{this.description}}</li>
+  <li><img src="{{this.animalImg.url}}" alt=""></li> 
+  <li>{{this.location}}  </li>    
+  {{/each}}
 </ul>
