@@ -2,5 +2,6 @@
 
 <ul>
   {{#each animal}}
-  <li>{{this.name}}, {{this.description}}, {{this.animalImg}}, {{this.location}}    </li> 
+  <li>{{this.name}}, {{this.description}}, <img src="{{this.animalImg.url}}" alt="">, {{this.location}}</li> 
+  {{/each}} 
 </ul>
