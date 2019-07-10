@@ -25,7 +25,7 @@ router.get("/", (req, res, next) => {
   // })
   //  })
   Post.find()
-  .populate("authorId")
+    .populate("authorId")
     .then(postC => {
       res.render("index", { user: req.user, postC: postC });
     })
@@ -35,88 +35,69 @@ router.get("/", (req, res, next) => {
 });
 
 router.get("/profile", ensureLogin.ensureLoggedIn(), (req, res, next) => {
-  
   res.render("profile", { user: req.user });
 });
-
 
 router.post(
   "/profile-edit/:id",
   ensureLogin.ensureLoggedIn(),
   uploadCloud.single("image"),
   (req, res, next) => {
-
-    User
-    .findByIdAndUpdate(req.user._id, 
+    User.findByIdAndUpdate(
+      req.user._id,
       {
-      picture: {url: req.file.url }
-    },
-    {new:true})
-    .then(updatedUser => {
-      res.render("profile", {user: updatedUser});
-    });       
-  })
-  
+        picture: { url: req.file.url }
+      },
+      { new: true }
+    ).then(updatedUser => {
+      res.render("profile", { user: updatedUser });
+    });
+  }
+);
 
-
-router.get("/create-post", uploadCloud.single("image"),(req, res, next) => {
-
+router.get("/create-post", uploadCloud.single("image"), (req, res, next) => {
   res.render("create-post");
 });
 
-
-
-
-router.post("/post-list", uploadCloud.single("image"), (req, res, next) => {
-  
-   Post
-   .create({
-  authotId: req.body.authotId,
-   title: req.body.title,
-   content: req.body.content,
-   postImg: req.file.url,
-   
-  })
-  .then(postNew => {
-    res.redirect("/post-list");
-  })
-  .catch(err => {
-    console.log(err);
-  });
-});
+// router.post("/post-list", uploadCloud.single("image"), (req, res, next) => {
+//   Post.create({
+//     authotId: req.body.authotId,
+//     title: req.body.title,
+//     content: req.body.content,
+//     postImg: req.file.url
+//   })
+//     .then(postNew => {
+//       res.redirect("/post-list");
+//     })
+//     .catch(err => {
+//       console.log(err);
+//     });
+// });
 //   // authorId: req.user._id,
 //   postImg: {
 //     url: path,
 //     originalName: oriName
-  // }
-
-
-
-
-
+// }
 
 router.get("/edit-post/:id", ensureLogin.ensureLoggedIn(), (req, res, next) => {
   Post.findById(req.params.id)
-    .populate('authorId')
+    .populate("authorId")
     .then(postDetail => {
       res.render("edit-post", { postDetail });
-      console.log("postDetail "+postDetail)
+      console.log("postDetail " + postDetail);
     })
     .catch(err => {
       console.log(err);
     });
 });
 
-
-
-
 // router.post("/edit-postP", uploadCloud.single("image"), (req, res, next) => {
 //   console.log(req.params.id)
 //   console.log("gilipollassssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss")
 
-//   Post.findByIdAndUpdate(req.body.id, 
+//   Post.findByIdAndUpdate(req.body.id,
 //     {
-//       // title:req.body.title, 
+//       // title:req.body.title,
 //           // content:req.body.content,
 //            postImg: req.file.url},
 //         { new: true })
@@ -130,33 +111,40 @@ router.get("/edit-post/:id", ensureLogin.ensureLoggedIn(), (req, res, next) => {
 // );
 // uploadCloud.single("image"),
 
-router.post("/edit-post/:id",  (req, res, next) => {
-  console.log(req.params.id)
+router.post(
+  "/edit-post/:id",
+  uploadCloud.single("postImage"),
+  (req, res, next) => {
+    // console.log(req.params.id);
 
-  Post.findByIdAndUpdate(req.params.id, 
-    {
-      title:req.body.title, 
-          content:req.body.content,
-       },
-        { new: true })
-        .then(editedPost => {
-          res.redirect("/post-list");
-        })
-        .catch(err => {
-          console.log(err);
-        });
+    Post.findByIdAndUpdate(
+      req.params.id,
+      {
+        title: req.body.title,
+        content: req.body.content,
+        postImg: req.file.url
+      }
+       ,
+        { new: true }
+    )
+      .then(editedPost => {
+        res.redirect("/post-list");
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 );
-        
-          
-
 
 router.get("/post-detail/:id", (req, res, next) => {
   Post.findOne({ _id: req.params.id })
     .populate("authorId")
     .then(postDetails => {
-      if (req.session.passport.user.toString() === postDetails.authorId._id.toString()) {
-        postDetails.youAreTheOwnerOfThisPost = true
+      if (
+        req.session.passport.user.toString() ===
+        postDetails.authorId._id.toString()
+      ) {
+        postDetails.youAreTheOwnerOfThisPost = true;
       }
       res.render("post-details", postDetails);
     })
@@ -164,10 +152,6 @@ router.get("/post-detail/:id", (req, res, next) => {
       console.log(err);
     });
 });
-
-
-
-
 
 router.get("/post-list", (req, res, next) => {
   Post.find()
@@ -190,10 +174,9 @@ router.get("/animal-list", (req, res, next) => {
 });
 
 router.get("/map", (req, res, next) => {
-  Animal.find()
-  .then(animal => {
-    res.render("map", animal)
-  })
+  Animal.find().then(animal => {
+    res.render("map", animal);
+  });
 });
 
 module.exports = router;

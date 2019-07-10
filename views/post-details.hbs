@@ -1,4 +1,13 @@
 
+<form action="/post-detail" method="POST" id="form-container">
+
+
+    <button>Create Comment</button>
+</form>
+
+
+
+
 {{#if youAreTheOwnerOfThisPost}}
 <a href="/edit-post/{{this._id}}">
     <button>Edit my post</button>
@@ -12,3 +21,6 @@
 
 </div>
 
+<a href="/edit-post/{{this._id}}">
+    <button>Edit my post</button>
+</a>
