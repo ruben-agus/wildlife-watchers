@@ -25,7 +25,7 @@ router.get("/", (req, res, next) => {
   // })
   //  })
   Post.find()
-  .populate("authorId")
+    .populate("authorId")
     .then(postC => {
       res.render("index", { user: req.user, postC: postC });
     })
@@ -35,112 +35,106 @@ router.get("/", (req, res, next) => {
 });
 
 router.get("/profile", ensureLogin.ensureLoggedIn(), (req, res, next) => {
-  
   res.render("profile", { user: req.user });
 });
-
 
 router.post(
   "/profile-edit/:id",
   ensureLogin.ensureLoggedIn(),
   uploadCloud.single("image"),
   (req, res, next) => {
-
-    User
-    .findByIdAndUpdate(req.user._id, 
+    User.findByIdAndUpdate(
+      req.user._id,
       {
-      picture: {url: req.file.url }
-    },
-    {new:true})
-    .then(updatedUser => {
-      res.render("profile", {user: updatedUser});
-    });       
-  })
-  
- 
+        picture: { url: req.file.url }
+      },
+      { new: true }
+    ).then(updatedUser => {
+      res.render("profile", { user: updatedUser });
+    });
+  }
+);
 
-router.get("/create-post", uploadCloud.single("image"),(req, res, next) => {
-
+router.get("/create-post", uploadCloud.single("image"), (req, res, next) => {
   res.render("create-post");
 });
 
-
-
-
-router.post("/post-list", uploadCloud.single("image"), (req, res, next) => {
-  
-   Post
-   .create({
-  authotId: req.body.authotId,
-   title: req.body.title,
-   content: req.body.content,
-   postImg: req.file.url,
-   
-  })
-  .then(postNew => {
-    res.redirect("/post-list");
-  })
-  .catch(err => {
-    console.log(err);
-  });
-});
+// router.post("/post-list", uploadCloud.single("image"), 
+// (req, res, next) => {
+//   Post.create({
+//     authotId: req.body.authotId,
+//     title: req.body.title,
+//     content: req.body.content,
+//     postImg: req.file.url
+//   })
+//     .then(postNew => {
+//       res.redirect("/post-list");
+//     })
+//     .catch(err => {
+//       console.log(err);
+//     });
+// });
 //   // authorId: req.user._id,
 //   postImg: {
 //     url: path,
 //     originalName: oriName
-  // }
-
-
-
-
-
+// }
 
 router.get("/edit-post/:id", ensureLogin.ensureLoggedIn(), (req, res, next) => {
-  Post.find({ _id: req.params.id })
-    .populate('authorId')
+  Post.findById(req.params.id)
+    .populate("authorId")
     .then(postDetail => {
       res.render("edit-post", { postDetail });
+      console.log("postDetail " + postDetail);
     })
     .catch(err => {
       console.log(err);
     });
 });
 
+
+
 router.post(
   "/edit-post/:id",
-  ensureLogin.ensureLoggedIn(),
+  uploadCloud.single("postImage"),
   (req, res, next) => {
-    if (req.params.id === req.post.id)
-      Post.find({ _id: req.params.id })
-        //.populate('author')
-        .then(postDetail => {
-          res.render("edit-post", { postDetail });
-        })
-        .catch(err => {
-          console.log(err);
-        });
+    // console.log(req.params.id);
+
+    Post.findByIdAndUpdate(
+      req.params.id,
+      {
+        title: req.body.title,
+        content: req.body.content,
+        postImg: req.file.url
+      }
+       ,
+        { new: true }
+    )
+      .then(editedPost => {
+        res.redirect("/post-list");
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 );
-
-
 
 router.get("/post-detail/:id", (req, res, next) => {
   Post.findOne({ _id: req.params.id })
     .populate("authorId")
     .then(postDetails => {
-      // if (req.session.passport.user.toString() === postDetails.authorId._id.toString()) {
-      //   postDetails.youAreTheOwnerOfThisPost = true
-      // }
+      if (
+        req.session.passport.user.toString() ===
+        postDetails.authorId._id.toString()
+      ) {
+        postDetails.youAreTheOwnerOfThisPost = true;
+      }
       res.render("post-details", postDetails);
     })
     .catch(err => {
       console.log(err);
     });
 });
-
-
-
-
 
 router.get("/post-list", (req, res, next) => {
   Post.find()
@@ -162,11 +156,35 @@ router.get("/animal-list", (req, res, next) => {
     });
 });
 
+
+router.get("/create-comment/",  (req, res, next) => {
+  Comment
+  .find()
+  .populate("authorId")
+  .populate("comments")
+  res.render("create-comment");
+});
+// ensureLogin.ensureLoggedIn(),
+router.post("/create-comment",  (req, res, next) => {
+  Comment.create({
+    authotId: req.body.authotId,
+        title: req.body.title,
+        content: req.body.content,
+      },{ new: true })
+        .then(postNew => {
+          res.redirect("/create-comment");
+        })
+        .catch(err => {
+          console.log(err);
+        });
+      });
 router.get("/map", (req, res, next) => {
-  Animal.find()
-  .then(animal => {
-    res.render("map", animal)
-  })
+  Animal.find().then(animal => {
+    res.render("map", animal);
+  });
 });
 
 module.exports = router;
+
+
+

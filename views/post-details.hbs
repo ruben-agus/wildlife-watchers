@@ -1,4 +1,15 @@
 
+<a href="/create-comment">
+    <button>Create Comment</button>
+</a>
+
+
+
+{{#if youAreTheOwnerOfThisPost}}
+<a href="/edit-post/{{this._id}}">
+    <button>Edit my post</button>
+</a>
+{{/if}}
 <div><ul>
   <li>{{title}}</li>
   <li>{{content}}</li>
@@ -7,8 +18,6 @@
 
 </div>
 
-{{#if youAreTheOwnerOfThisPost}}
 <a href="/edit-post/{{this._id}}">
     <button>Edit my post</button>
 </a>
-{{/if}}
