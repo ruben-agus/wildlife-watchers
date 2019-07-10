@@ -33,40 +33,101 @@ nav a::after {
   content: "|";
 }
 
-h1 {
-  margin: 1rem 1.5rem;
-  font-size: 2rem;
-  font-weight: bold;
+.home-wrapper {
+display: flex;
+flex-direction: column;
+padding: 1.5rem;
 }
+
+.home-wrapper h1 {
+  font-size: 3rem;
+  font-weight: bold;
+} 
+
+.post-wrapper {
+  display:flex;
+  justify-content: space-between;
+
+} 
+
+.post-collection{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 30px;
+  width: 25vw;
+} 
+
+.post-collection h2{
+font-size: 1.5rem;
+font-weight: bold;
+margin-bottom: 2rem;
+} 
+
+.post-preview img{
+  width: 250px;
+  margin-bottom: 1.5rem;
+  border-radius: 2rem;
+} 
+
+.post-title {
+  margin-bottom: 0.7rem;
+}
+
+.post-title h3{
+font-size: 1.2rem;
+font-weight: bold;
+margin-bottom: 0.7rem;
+} 
+
+.post-title {
+  margin-bottom: 0.7rem;
+} 
 
 .random-animal {
   display: flex;
+  flex-direction: column;
   max-width: 95rem;
   justify-content: left;
-  margin: 1rem 1.5rem;
+  margin: 1rem 0;
 }
-#map {
-  width: 70vw;
-  height: 70vh;
+
+.random-animal-photo{
+  width: 100%;
 } 
-
-
 
 .random-animal-info {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: right;
-  margin-left: 1.5rem;
 }
 
 .random-animal-info h2 {
   font-size: 1.8rem;
-  margin-bottom: 1rem;
+  margin: 1rem 0;
   font-weight: bold;
 }
 
 .random-animal-info p{
   font-size: 1.3rem;
   margin-bottom: 0.5rem;
+} 
+
+#map {
+  width: 70vw;
+  height: 70vh;
+} 
+
+#map h1 {
+  margin: 1rem 0rem;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+#map p {
+  margin: 0.7rem 0rem;
+  font-size: 1.1rem
 } 

@@ -17,12 +17,12 @@ const map = new google.maps.Map(
 
 
 axios
-      .get("http://localhost:3000/auth/json")
+      .get("/auth/json")
       .then(JSONPayload => {
         console.log(JSONPayload)
-          JSONPayload.data.forEach(place => {
+          JSONPayload.data.forEach(animal => {
               
-              var contentString = `<p>Hola Miriam, ¿te apetece Salmorejo?</p> <img src="https://okdiario.com/img/recetas/2017/04/17/salmorejo-de-mango-2.jpg">`
+              var contentString = `<h1>${animal.name}</h1><p>${animal.description}</p> <img src="${animal.animalImg.url}" width="400px">`
 
         var infowindow = new google.maps.InfoWindow({
           content: contentString
@@ -30,12 +30,12 @@ axios
 
         const marker = new google.maps.Marker({
           position: {
-              lng: place.location.coordinates[0],
-              lat: place.location.coordinates[1],
+              lng: animal.location.coordinates[0],
+              lat: animal.location.coordinates[1],
           },
           animation: google.maps.Animation.DROP,
           map: map,
-          title: place.name
+          title: animal.name
       });
 
         marker.addListener('click', function() {
