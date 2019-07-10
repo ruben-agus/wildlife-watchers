@@ -59,6 +59,16 @@ router.get("/create-post", uploadCloud.single("image"), (req, res, next) => {
   res.render("create-post");
 });
 
+router.get("/post-list", (req, res, next) => {
+  Post.find()
+    .then(post => {
+      res.render("forum", { post });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+});
+
 // router.post("/post-list", uploadCloud.single("image"), 
 // (req, res, next) => {
 //   Post.create({
@@ -123,12 +133,12 @@ router.get("/post-detail/:id", (req, res, next) => {
   Post.findOne({ _id: req.params.id })
     .populate("authorId")
     .then(postDetails => {
-      if (
-        req.session.passport.user.toString() ===
-        postDetails.authorId._id.toString()
-      ) {
-        postDetails.youAreTheOwnerOfThisPost = true;
-      }
+      // if (
+      //   req.session.passport.user.toString() ===
+      //   postDetails.authorId._id.toString()
+      // ) {
+      //   postDetails.youAreTheOwnerOfThisPost = true;
+      // }
       res.render("post-details", postDetails);
     })
     .catch(err => {
@@ -136,15 +146,7 @@ router.get("/post-detail/:id", (req, res, next) => {
     });
 });
 
-router.get("/post-list", (req, res, next) => {
-  Post.find()
-    .then(post => {
-      res.render("forum", { post });
-    })
-    .catch(err => {
-      console.log(err);
-    });
-});
+
 
 router.get("/animal-list", (req, res, next) => {
   Animal.find()
