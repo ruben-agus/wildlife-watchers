@@ -7,29 +7,76 @@ body {
   padding: 0;
   font: 10px "Lucida Grande", Helvetica, Arial, sans-serif; }
 
-body {
-  padding: 2rem; }
-
-a {
-  color: #00B7FF;
-  transition: all 0.5s; }
-
-a:hover {
-  color: green; }
+.flexbox-row {
+  display: flex;
+  flex-direction: row; }
 
 nav {
-  margin: 1.4rem 1.4rem;
-  font-size: 1.6rem;
-  font-weight: bold; }
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 2rem;
+  height: 70px;
+  padding: 25px;
+  font-weight: bold;
+  background: #006e2e;
+  background: -moz-linear-gradient(left, #006e2e 0%, #106b34 30%, #1f683b 50%, #28663f 75%);
+  background: -webkit-linear-gradient(left, #006e2e 0%, #106b34 30%, #1f683b 50%, #28663f 75%);
+  background: linear-gradient(to right, #006e2e 0%, #106b34 30%, #1f683b 50%, #28663f 75%);
+  box-shadow: 0 6px 2px -2px gray; }
 
-nav a::after {
-  margin-left: 1rem;
-  content: "|"; }
+nav ul {
+  display: flex;
+  flex-direction: row; }
+
+nav ul li {
+  margin-left: 2.5rem; }
+
+nav a {
+  color: #B3DFFF;
+  text-decoration: none;
+  transition: all 0.5s; }
+
+nav a:hover {
+  color: #ffffff; }
+
+nav div {
+  display: flex;
+  flex-direction: row;
+  align-items: center; }
+
+.auth-wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 3.5rem;
+  font-size: 1.5rem; }
+
+.auth-wrapper h2 {
+  font-weight: bold;
+  font-size: 2.5rem;
+  margin-bottom: 2rem; }
+
+.auth-wrapper-label {
+  margin-right: 1.5rem;
+  width: 20rem; }
+
+.auth-wrapper input {
+  border-radius: 5px;
+  width: 300px;
+  padding: 5px;
+  margin-bottom: 1rem; }
+
+.user-picture {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  margin: 0 1.5rem; }
 
 .home-wrapper {
   display: flex;
   flex-direction: column;
-  padding: 1.5rem; }
+  padding: 3.5rem; }
 
 .home-wrapper h1 {
   font-size: 3rem;
@@ -49,7 +96,7 @@ nav a::after {
   width: 25vw; }
 
 .post-collection h2 {
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: bold;
   margin-bottom: 2rem; }
 
@@ -59,14 +106,12 @@ nav a::after {
   border-radius: 2rem; }
 
 .post-title {
-  margin-bottom: 0.7rem; }
+  margin-bottom: 0.7rem;
+  font-size: 1.2rem; }
 
 .post-title h3 {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   font-weight: bold;
-  margin-bottom: 0.7rem; }
-
-.post-title {
   margin-bottom: 0.7rem; }
 
 .random-animal {

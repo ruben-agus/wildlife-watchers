@@ -1,10 +1,11 @@
+<div class="auth-wrapper">
 <h2>Registrar una nueva cuenta</h2>
 
 <form action="/auth/signup" method="POST" id="form-container" enctype="multipart/form-data">
-  <label for="username">Nombre de usuario</label>
+  <div class="flexbox-row">
+  <div class="auth-wrapper-label"><label for="username">Nombre de usuario</label></div>
   <input id="username" type="text" name="username" placeholder="Felix Rodríguez de la Fuente">
-
-  <br><br>
+  </div>
 
   <label for="password">Contraseña</label>
   <input id="password" type="password" name="password" placeholder="Contraseña1234">
@@ -18,9 +19,10 @@
 
   <br><br>
 
-  <button>Crear cuenta</button>
+  <button class="btn">Crear cuenta</button>
 
   <p class="account-message">
     ¿Ya estás registrado? Prueba a <a href="/auth/login">iniciar sesión</a>
   </p>
 </form>
+</div>
