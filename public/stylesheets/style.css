@@ -48,20 +48,31 @@ nav a::after {
   padding: 30px;
   width: 25vw; }
 
+.post-collection h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 2rem; }
+
 .post-preview img {
   width: 250px;
   margin-bottom: 1.5rem;
   border-radius: 2rem; }
 
-.post-preview h3 {
+.post-title {
+  margin-bottom: 0.7rem; }
+
+.post-title h3 {
   font-size: 1.2rem;
   font-weight: bold;
+  margin-bottom: 0.7rem; }
+
+.post-title {
   margin-bottom: 0.7rem; }
 
 .random-animal {
   display: flex;
   flex-direction: column;
-  max-width: 90rem;
+  max-width: 95rem;
   justify-content: left;
   margin: 1rem 0; }
 
@@ -72,8 +83,7 @@ nav a::after {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: right;
-  margin-left: 1.5rem; }
+  justify-content: right; }
 
 .random-animal-info h2 {
   font-size: 1.8rem;
