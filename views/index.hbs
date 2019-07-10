@@ -31,9 +31,9 @@
       {{#each postC}}
       <div class="post-preview">
         <div class="post-title">
-        <h3><a href="post-details/{{this._id}}">{{this.title}}</a></h3><span>por {{this.authorId}}</span>
+        <h3><a href="/post-detail/{{this._id}}">{{this.title}}</a></h3><span>por {{this.authorId.username}}</span>
         </div>
-        <img src="{{this.postImg.url}}" alt="">
+        <img src="{{this.postImg}}" alt="">
       </div>
       {{/each}}
     </div>
