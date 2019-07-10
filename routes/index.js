@@ -70,7 +70,7 @@ router.post("/post-list", uploadCloud.single("image"), (req, res, next) => {
   
    Post
    .create({
-    
+  authotId: req.body.authotId,
    title: req.body.title,
    content: req.body.content,
    postImg: req.file.url,
@@ -96,7 +96,7 @@ router.post("/post-list", uploadCloud.single("image"), (req, res, next) => {
 
 router.get("/edit-post/:id", ensureLogin.ensureLoggedIn(), (req, res, next) => {
   Post.find({ _id: req.params.id })
-    // .populate('author')
+    .populate('authorId')
     .then(postDetail => {
       res.render("edit-post", { postDetail });
     })
@@ -111,7 +111,7 @@ router.post(
   (req, res, next) => {
     if (req.params.id === req.post.id)
       Post.find({ _id: req.params.id })
-        // .populate('author')
+        //.populate('author')
         .then(postDetail => {
           res.render("edit-post", { postDetail });
         })
@@ -120,16 +120,26 @@ router.post(
         });
   }
 );
+
+
+
 router.get("/post-detail/:id", (req, res, next) => {
   Post.findOne({ _id: req.params.id })
-    .populate("author")
-    .then(postDetail => {
-      res.render("post-details", { postDetail });
+    .populate("authorId")
+    .then(postDetails => {
+      if (req.session.passport.user.toString() === postDetails.authorId._id.toString()) {
+        postDetails.youAreTheOwnerOfThisPost = true
+      }
+      res.render("post-details", postDetails);
     })
     .catch(err => {
       console.log(err);
     });
 });
+
+
+
+
 
 router.get("/post-list", (req, res, next) => {
   Post.find()

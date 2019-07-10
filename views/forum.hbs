@@ -2,7 +2,7 @@ Welcome to the wildlife forum association
 pribando pribando
 {{#each post}}
 <div><ul>
-  <li>{{this}}</li>
+  <li><a href="/post-detail/{{this._id}}">{{this.title}}</a></li>
   <li>{{this.content}}</li>
   <li><img src="{{this.postImg}}" alt=""></li>
 
@@ -13,10 +13,10 @@ pribando pribando
 
 
 
-
+{{#if user}}
 <a href="/create-post">
     <button>Create New Post</button>
 </a>
-
+{{/if}}
 
 
