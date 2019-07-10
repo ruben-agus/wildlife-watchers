@@ -69,21 +69,21 @@ router.get("/post-list", (req, res, next) => {
     });
 });
 
-// router.post("/post-list", uploadCloud.single("image"), 
-// (req, res, next) => {
-//   Post.create({
-//     authotId: req.body.authotId,
-//     title: req.body.title,
-//     content: req.body.content,
-//     postImg: req.file.url
-//   })
-//     .then(postNew => {
-//       res.redirect("/post-list");
-//     })
-//     .catch(err => {
-//       console.log(err);
-//     });
-// });
+router.post("/post-list", uploadCloud.single("image"), 
+(req, res, next) => {
+  Post.create({
+    authotId: req.body.authotId,
+    title: req.body.title,
+    content: req.body.content,
+    postImg: req.file.url
+  })
+    .then(postNew => {
+      res.redirect("/post-list");
+    })
+    .catch(err => {
+      console.log(err);
+    });
+});
 //   // authorId: req.user._id,
 //   postImg: {
 //     url: path,
