@@ -133,12 +133,12 @@ router.get("/post-detail/:id", (req, res, next) => {
   Post.findOne({ _id: req.params.id })
     .populate("authorId")
     .then(postDetails => {
-      // if (
-      //   req.session.passport.user.toString() ===
-      //   postDetails.authorId._id.toString()
-      // ) {
-      //   postDetails.youAreTheOwnerOfThisPost = true;
-      // }
+      if (
+        req.session.passport.user.toString() ===
+        postDetails.authorId._id.toString()
+      ) {
+        postDetails.youAreTheOwnerOfThisPost = true;
+      }
       res.render("post-details", postDetails);
     })
     .catch(err => {
