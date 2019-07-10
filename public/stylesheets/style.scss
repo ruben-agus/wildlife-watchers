@@ -1,6 +1,6 @@
 * {
- box-sizing: border-box; 
-} 
+  box-sizing: border-box;
+}
 
 html,
 body {
@@ -9,94 +9,210 @@ body {
   font: 10px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
-body {
-  padding: 2rem;
-}
-
-a {
-  color: #00B7FF;
-  transition: all 0.5s;
+.flexbox-row {
+  display: flex;
+  flex-direction:row;
+  align-items: baseline;
 } 
 
-a:hover {
-  color: green;  
-}  
+
+.flexbox-column{
+  display:flex;
+  flex-direction:column;
+  justify-content: baseline
+} 
+
+button {
+  border-radius: 1rem;
+  padding: 0.7rem 2rem;
+  box-shadow: 0 4px 2px -2px gray;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  border: none;
+} 
+
+.btn-confirm{
+  background-color: #006e2e;
+  color: #B3DFFF;
+  max-width: 15rem; 
+} 
 
 nav {
-  margin: 1.4rem 1.4rem;
-  font-size: 1.6rem;
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 2rem;
+  height: 70px;
+  padding: 25px;
   font-weight: bold;
+  background: #006e2e;
+  background: -moz-linear-gradient(
+    left,
+    #006e2e 0%,
+    #106b34 30%,
+    #1f683b 50%,
+    #28663f 75%
+  );
+  background: -webkit-linear-gradient(
+    left,
+    #006e2e 0%,
+    #106b34 30%,
+    #1f683b 50%,
+    #28663f 75%
+  );
+  background: linear-gradient(
+    to right,
+    #006e2e 0%,
+    #106b34 30%,
+    #1f683b 50%,
+    #28663f 75%
+  );
+  box-shadow: 0 6px 2px -2px gray;
+  margin-bottom: 1.5rem;
 }
 
-nav a::after {
-  margin-left: 1rem;
-  content: "|";
+
+
+nav ul {
+display: flex;
+flex-direction: row;
+} 
+
+nav ul li {
+  margin-left: 2.5rem;
 }
+
+nav a {
+  color: #B3DFFF;
+  text-decoration: none;
+  transition: all 0.5s;
+}
+
+nav a:hover {
+  color: #ffffff;
+}
+
+nav div {
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+} 
+
+.auth-wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 3.5rem;
+  font-size: 1.8rem;
+}
+
+.auth-wrapper h2 {
+  font-weight: bold;
+  font-size: 2.3rem;
+  margin-bottom: 3rem;
+} 
+
+.auth-wrapper-label {
+  margin-right: 1.5rem;
+  width: 20rem;
+} 
+
+.auth-wrapper input{
+  border-radius: 5px;
+  width: 300px;
+  padding: 8px;
+  margin-bottom: 2rem;
+}
+
+.auth-wrapper p{
+  margin-bottom: 1.5rem;
+} 
+
+
+.user-picture{
+  border-radius: 50%;
+  width: 5rem;
+  height: 5rem;
+  margin: 0 1.5rem;
+} 
+
+.user-profile-pic{
+  height: 20rem;
+  width: 20rem;
+  border-radius: 2rem;
+  border: 0.2rem solid white;
+  margin-right: 2.5rem;
+} 
+
+.space{
+  justify-content: space-between;
+} 
+.change-picture{
+  align-items:center;
+} 
 
 .home-wrapper {
-display: flex;
-flex-direction: column;
-padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 3.5rem;
 }
 
 .home-wrapper h1 {
-  font-size: 3rem;
+  font-size: 4rem;
   font-weight: bold;
-} 
+  margin-bottom: 1.5rem;
+}
 
 .post-wrapper {
-  display:flex;
+  display: flex;
   justify-content: space-between;
+}
 
-} 
-
-.post-collection{
-  display:flex;
+.post-collection {
+  display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   border: 1px solid black;
   border-radius: 10px;
-  padding: 30px;
+  padding: 20px;
   width: 25vw;
-} 
+}
 
-.post-collection h2{
-font-size: 1.5rem;
-font-weight: bold;
-margin-bottom: 2rem;
-} 
+.post-collection h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
 
-.post-preview img{
+.post-preview img {
   width: 250px;
   margin-bottom: 1.5rem;
   border-radius: 2rem;
-} 
-
-.post-title {
-  margin-bottom: 0.7rem;
 }
 
-.post-title h3{
-font-size: 1.2rem;
-font-weight: bold;
-margin-bottom: 0.7rem;
-} 
-
 .post-title {
   margin-bottom: 0.7rem;
-} 
+  font-size: 1.2rem;
+}
+
+.post-title h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.7rem;
+}
 
 .random-animal {
   display: flex;
   flex-direction: column;
-  max-width: 95rem;
+  max-width: 100rem;
   justify-content: left;
   margin: 1rem 0;
 }
 
-.random-animal-photo{
+.random-animal-photo {
   width: 100%;
-} 
+}
 
 .random-animal-info {
   display: flex;
@@ -106,20 +222,21 @@ margin-bottom: 0.7rem;
 }
 
 .random-animal-info h2 {
-  font-size: 1.8rem;
+  font-size: 2rem;
   margin: 1rem 0;
   font-weight: bold;
 }
 
-.random-animal-info p{
-  font-size: 1.3rem;
+.random-animal-info p {
+  font-size: 1.5rem;
   margin-bottom: 0.5rem;
-} 
+  text-align: justify;
+}
 
 #map {
   width: 70vw;
   height: 70vh;
-} 
+}
 
 #map h1 {
   margin: 1rem 0rem;
@@ -129,5 +246,5 @@ margin-bottom: 0.7rem;
 
 #map p {
   margin: 0.7rem 0rem;
-  font-size: 1.1rem
-} 
+  font-size: 1.1rem;
+}

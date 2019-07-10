@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,34 +11,35 @@
   <script src="https://maps.googleapis.com/maps/api/js?key={{GOOGLEMAPSAPIKEY}}&libraries=places"></script>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css">
-  <link rel="stylesheet" href="/stylesheets/style.css" /> 
+  <link rel="stylesheet" href="/stylesheets/style.css" />
 </head>
+
 <body>
 
   <nav>
-    <a href="/">Home</a>
-    {{#unless user}} 
-    <a href="/auth/login">Iniciar Sesión</a>
-    <a href="/auth/signup">Registrarse</a>
-    {{/unless}} 
-    {{#if user}}
-    <a href="/profile">Perfil</a>
-     
-    {{/if}} 
-    <a href="/map">Mapa</a>
-    <a href="/animal-list">Animalillos</a>
-    <a href="/post-list">Foro</a>
-    {{#if user}}
-    <a href="/auth/logout">Cerrar Sesión</a>
-    
-    {{/if}}
+    <ul>
+      <li><a href="/">Home</a></li>
+      {{#unless user}}
+      <li><a href="/auth/login">Iniciar Sesión</a></li>
+      <li><a href="/auth/signup">Registrarse</a></li>
+      {{/unless}}
+      <li><a href="/map">Mapa</a></li>
+      <li><a href="/animal-list">Animales avistados</a></li>
+      <li><a href="/post-list">Foro</a></li>
+    </ul>
 
 
-    {{#if user}}
-    <span>User: {{user.username}} | {{user.role}}</span> <img src="{{user.picture}}" alt="" srcset=""> 
-  <a href="/create-post">
-    <button>Create New Post A mover donde los post</button>
-</a>
+
+
+
+    <div>
+      {{#if user}}
+      <a href="/profile">Ir a perfil: {{user.username}}</a> &nbsp; <a>|</a> &nbsp; <a href="/auth/logout">Cerrar
+        Sesión</a> {{user.role}}</span> <img class="user-picture" src="{{user.picture.url}}" alt="" srcset="">
+    </div>
+    {{!-- <a href="/create-post">
+      <button>Create New Post A mover donde los post</button>
+    </a> --}}
     {{/if}}
   </nav>
 
@@ -45,4 +47,5 @@
 
   <script src="/javascripts/script.js"></script>
 </body>
+
 </html>
