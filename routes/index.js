@@ -59,7 +59,8 @@ router.get("/create-post", uploadCloud.single("image"), (req, res, next) => {
   res.render("create-post");
 });
 
-// router.post("/post-list", uploadCloud.single("image"), (req, res, next) => {
+// router.post("/post-list", uploadCloud.single("image"), 
+// (req, res, next) => {
 //   Post.create({
 //     authotId: req.body.authotId,
 //     title: req.body.title,
@@ -91,25 +92,7 @@ router.get("/edit-post/:id", ensureLogin.ensureLoggedIn(), (req, res, next) => {
     });
 });
 
-// router.post("/edit-postP", uploadCloud.single("image"), (req, res, next) => {
-//   console.log(req.params.id)
-//   console.log("gilipollassssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss")
 
-//   Post.findByIdAndUpdate(req.body.id,
-//     {
-//       // title:req.body.title,
-//           // content:req.body.content,
-//            postImg: req.file.url},
-//         { new: true })
-//         .then(editedPost => {
-//           res.redirect("/post-list");
-//         })
-//         .catch(err => {
-//           console.log(err);
-//         });
-//   }
-// );
-// uploadCloud.single("image"),
 
 router.post(
   "/edit-post/:id",
@@ -173,6 +156,28 @@ router.get("/animal-list", (req, res, next) => {
     });
 });
 
+
+router.get("/create-comment/",  (req, res, next) => {
+  Comment
+  .find()
+  .populate("authorId")
+  .populate("comments")
+  res.render("create-comment");
+});
+// ensureLogin.ensureLoggedIn(),
+router.post("/create-comment",  (req, res, next) => {
+  Comment.create({
+    authotId: req.body.authotId,
+        title: req.body.title,
+        content: req.body.content,
+      },{ new: true })
+        .then(postNew => {
+          res.redirect("/create-comment");
+        })
+        .catch(err => {
+          console.log(err);
+        });
+      });
 router.get("/map", (req, res, next) => {
   Animal.find().then(animal => {
     res.render("map", animal);
@@ -180,3 +185,6 @@ router.get("/map", (req, res, next) => {
 });
 
 module.exports = router;
+
+
+
