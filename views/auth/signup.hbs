@@ -7,21 +7,24 @@
   <input id="username" type="text" name="username" placeholder="Felix Rodríguez de la Fuente">
   </div>
 
-  <label for="password">Contraseña</label>
+<div class="flexbox-row">
+  <div class="auth-wrapper-label"><label for="password">Contraseña</label></div>
   <input id="password" type="password" name="password" placeholder="Contraseña1234">
-  <br><br>
+</div>
 
-  <label>Foto de perfil</label>
+<div class="flexbox-row">
+<div class="auth-wrapper-label"><label for="password">Foto de perfil <br>(puede ser de frente)</label></div>
   <input type="file" name="picture">
+  </div>
   {{#if message }}
     <div class="error-message">{{ message }}</div>
   {{/if}}
 
   <br><br>
 
-  <button class="btn">Crear cuenta</button>
+  <button class="btn-confirm">Crear cuenta</button>
 
-  <p class="account-message">
+  <p>
     ¿Ya estás registrado? Prueba a <a href="/auth/login">iniciar sesión</a>
   </p>
 </form>

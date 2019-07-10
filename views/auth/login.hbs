@@ -1,24 +1,28 @@
+<div class="auth-wrapper">
 
 <h2>Iniciar Sesión</h2>
 
 <form action="/auth/login" method="POST" id="form-container">
-  <label for="username">Nombre de usuario</label>
-  <input id="username" type="text" name="username" placeholder="Félix Rodríguez de la Fuente">
 
-  <br><br>
+<div class="flexbox-row">
+  <div class="auth-wrapper-label"><label for="username">Nombre de usuario</label></div>
+  <input id="username" type="text" name="username" placeholder="Felix Rodríguez de la Fuente">
+  </div>
 
-  <label for="password">Contraseña</label>
+<div class="flexbox-row">
+  <div class="auth-wrapper-label"><label for="password">Contraseña</label></div>
   <input id="password" type="password" name="password" placeholder="Contraseña1234">
-  <br>
+</div>
+
   {{#if message }}
     <div class="error-message">{{ message }}</div>
   {{/if}}
 
-  <br><br>
 
-  <button>Iniciar sesión</button>
+  <button class="btn-confirm">Iniciar sesión</button>
 
   <p class="account-message">
 ¿Todavía no te has registrado? Prueba <a href="/auth/signup">registrándote aquí</a>
   </p>
 </form>
+</div>
