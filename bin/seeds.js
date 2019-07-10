@@ -116,10 +116,7 @@ User.remove()
             title: "Esto es un coyote",
             content: "Los coyotes os comen desde el cogote",
             authorId: userBId,
-            postImg: {
-              url: "https://i.ytimg.com/vi/XOj6xGKEsUw/maxresdefault.jpg",
-              originalName: "coyotaco.jpg"
-            },
+            postImg: "https://i.ytimg.com/vi/XOj6xGKEsUw/maxresdefault.jpg",
             comments: [createdComment[0]._id]
           }
         ]);
