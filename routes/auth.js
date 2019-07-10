@@ -7,6 +7,7 @@ const uploadCloud = require("../config/cloudinary.js");
 // Bcrypt to encrypt passwords
 const bcrypt = require("bcrypt");
 const bcryptSalt = 10;
+const multer = require("multer");
 
 router.get("/login", (req, res, next) => {
   res.render("auth/login", { message: req.flash("error") });

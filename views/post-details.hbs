@@ -1,0 +1,14 @@
+
+<div><ul>
+  <li>{{title}}</li>
+  <li>{{content}}</li>
+  <li><img src="{{postImg}}" alt=""></li>
+</ul>
+
+</div>
+
+{{#if youAreTheOwnerOfThisPost}}
+<a href="/edit-post/{{this._id}}">
+    <button>Edit my post</button>
+</a>
+{{/if}}

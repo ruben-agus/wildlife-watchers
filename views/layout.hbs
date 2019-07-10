@@ -22,19 +22,23 @@
     {{/unless}} 
     {{#if user}}
     <a href="/profile">Perfil</a>
+     
     {{/if}} 
     <a href="/map">Mapa</a>
     <a href="/animal-list">Animalillos</a>
     <a href="/post-list">Foro</a>
     {{#if user}}
     <a href="/auth/logout">Cerrar Sesión</a>
+    
     {{/if}}
 
 
     {{#if user}}
     <span>User: {{user.username}} | {{user.role}}</span> <img src="{{user.picture}}" alt="" srcset=""> 
+  <a href="/create-post">
+    <button>Create New Post A mover donde los post</button>
+</a>
     {{/if}}
- 
   </nav>
 
   {{{body}}}
