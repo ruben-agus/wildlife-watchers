@@ -34,7 +34,7 @@ router.get("/", (req, res, next) => {
 });
 
 router.get("/profile", ensureLogin.ensureLoggedIn(), (req, res, next) => {
-  console.log(req.user);
+  
   res.render("profile", { user: req.user });
 });
 
@@ -43,7 +43,7 @@ router.post(
   "/profile-edit/:id",
   ensureLogin.ensureLoggedIn(),
   uploadCloud.single("image"),
-  (req, res, next) => {console.log(req.file)
+  (req, res, next) => {
 
     User
     .findByIdAndUpdate(req.user._id, 
@@ -127,9 +127,9 @@ router.get("/post-detail/:id", (req, res, next) => {
   Post.findOne({ _id: req.params.id })
     .populate("authorId")
     .then(postDetails => {
-      if (req.session.passport.user.toString() === postDetails.authorId._id.toString()) {
-        postDetails.youAreTheOwnerOfThisPost = true
-      }
+      // if (req.session.passport.user.toString() === postDetails.authorId._id.toString()) {
+      //   postDetails.youAreTheOwnerOfThisPost = true
+      // }
       res.render("post-details", postDetails);
     })
     .catch(err => {
