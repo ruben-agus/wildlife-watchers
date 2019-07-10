@@ -1,6 +1,13 @@
-<form action="/profile-edit/{{user._id}}" method="POST" id="form-container" enctype="multipart/form-data">
+<form action="/edit-post/:id" method="POST" enctype="multipart/form-data" id="form-container">
+{{!-- {{postDetail._id}} --}}
+  <label>Editar Post</label>
+  {{!-- <input type="file" name="postImage" value="{{postDetail.postImage}}"> --}}
+  <input type="text" name="title" value="{{this.postDetail.title}}">
+  <input type="text" name="content" value="{{this.postDetail.content}}">
+  {{!-- <inpput type="text" name="id" value="{{this.postDetail._id}}"> --}}
 
-  <label>Cambiar foto de perfil</label>
-  <input type="file" name="image">
-  <button type='submit'>Cambiar foto</button>
+  <button type='submit'>Editar post</button>
 </form>
+
+
+

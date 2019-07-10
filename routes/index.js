@@ -57,7 +57,7 @@ router.post(
     });       
   })
   
- 
+
 
 router.get("/create-post", uploadCloud.single("image"),(req, res, next) => {
 
@@ -96,41 +96,68 @@ router.post("/post-list", uploadCloud.single("image"), (req, res, next) => {
 
 
 router.get("/edit-post/:id", ensureLogin.ensureLoggedIn(), (req, res, next) => {
-  Post.find({ _id: req.params.id })
+  Post.findById(req.params.id)
     .populate('authorId')
     .then(postDetail => {
       res.render("edit-post", { postDetail });
+      console.log("postDetail "+postDetail)
     })
     .catch(err => {
       console.log(err);
     });
 });
 
-router.post(
-  "/edit-post/:id",
-  ensureLogin.ensureLoggedIn(),
-  (req, res, next) => {
-    if (req.params.id === req.post.id)
-      Post.find({ _id: req.params.id })
-        //.populate('author')
-        .then(postDetail => {
-          res.render("edit-post", { postDetail });
+
+
+
+// router.post("/edit-postP", uploadCloud.single("image"), (req, res, next) => {
+//   console.log(req.params.id)
+//   console.log("gilipollassssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss")
+
+//   Post.findByIdAndUpdate(req.body.id, 
+//     {
+//       // title:req.body.title, 
+//           // content:req.body.content,
+//            postImg: req.file.url},
+//         { new: true })
+//         .then(editedPost => {
+//           res.redirect("/post-list");
+//         })
+//         .catch(err => {
+//           console.log(err);
+//         });
+//   }
+// );
+// uploadCloud.single("image"),
+
+router.post("/edit-post/:id",  (req, res, next) => {
+  console.log(req.params.id)
+
+  Post.findByIdAndUpdate(req.params.id, 
+    {
+      title:req.body.title, 
+          content:req.body.content,
+       },
+        { new: true })
+        .then(editedPost => {
+          res.redirect("/post-list");
         })
         .catch(err => {
           console.log(err);
         });
   }
 );
-
+        
+          
 
 
 router.get("/post-detail/:id", (req, res, next) => {
   Post.findOne({ _id: req.params.id })
     .populate("authorId")
     .then(postDetails => {
-      // if (req.session.passport.user.toString() === postDetails.authorId._id.toString()) {
-      //   postDetails.youAreTheOwnerOfThisPost = true
-      // }
+      if (req.session.passport.user.toString() === postDetails.authorId._id.toString()) {
+        postDetails.youAreTheOwnerOfThisPost = true
+      }
       res.render("post-details", postDetails);
     })
     .catch(err => {
