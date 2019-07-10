@@ -31,15 +31,42 @@ const uploadCloud = require("../config/cloudinary.js")
   //     console.log(err)
   // })
   //  })
-    Post
-  .find()
-  .then(postC =>{
-    res.render('index',{user:req.user, postC:postC} );
-  }).catch((err) => {
-    console.log(err)
-  })
-})
 
+  Post.find()
+    .then(postC => {
+      res.render("index", { user: req.user, postC: postC });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+});
+
+router.get("/profile", ensureLogin.ensureLoggedIn(), (req, res, next) => {
+  
+  res.render("profile", { user: req.user });
+});
+
+
+router.post(
+  "/profile-edit/:id",
+  ensureLogin.ensureLoggedIn(),
+  uploadCloud.single("image"),
+  (req, res, next) => {
+
+    User
+    .findByIdAndUpdate(req.user._id, 
+      {
+      picture: {url: req.file.url }
+    },
+    {new:true})
+    .then(updatedUser => {
+      res.render("profile", {user: updatedUser});
+    });       
+  })
+  
+ 
+
+  
 
 
 router.get('/profile', ensureLogin.ensureLoggedIn(),(req, res, next) => {
@@ -115,9 +142,14 @@ router.post("/edit-post/:id", ensureLogin.ensureLoggedIn(), (req, res, next) => 
 });
 router.get("/post-detail/:id", (req, res, next) => {
   Post.findOne({ _id: req.params.id })
-    .populate("author")
-    .then(postDetail => {
-      res.render("post-details", { postDetail });
+
+    .populate("authorId")
+    .then(postDetails => {
+      // if (req.session.passport.user.toString() === postDetails.authorId._id.toString()) {
+      //   postDetails.youAreTheOwnerOfThisPost = true
+      // }
+      res.render("post-details", postDetails);
+
     })
     .catch(err => {
       console.log(err);
