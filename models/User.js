@@ -17,7 +17,9 @@ const userSchema = new Schema(
     postNum: {
       type: Number,
       default: 0
-    }
+    },
+    confirmationCode: [{ type: String }, { unique: true }], // nodemailer
+    email: String //nodemailer
   },
   {
     timestamps: {
