@@ -9,16 +9,35 @@
         <img class="user-profile-pic" src="{{user.picture.url}} " alt="" srcset="">
       </div>
 
-      <form action="/profile-edit/{{user._id}}" method="POST" id="form-container" enctype="multipart/form-data">
+      <form action="/profile-edit/{{user._id}}" method="POST" id="form-container" 
+      enctype="multipart/form-data"
+      >
 
-
-        <div class="flexbox-column">
+        <div class="flexbox-row">
           <div class="auth-wrapper-label"><label for="password">Cambiar foto de perfil <br>(puede ser de frente)</label>
           </div>
           <input type="file" name="image">
 
-          <button class="btn-confirm" type='submit'>Cambiar foto</button>
         </div>
+<hr> 
+        <div><p>Cambiar contraseña:</p></div>
+
+        <div class="flexbox-row">
+          <div class="auth-wrapper-label"><label for="password-old">Contraseña antigua<br>(no barbuda)</label></div>
+          <input type="password" name="password-old" placeholder="old password">
+        </div>
+        <div class="flexbox-row">
+          <div class="auth-wrapper-label"><label for="password-new">Contraseña nueva</label></div>
+          <input type="password" name="password-new" placeholder="new password">
+        </div>
+        <div class="flexbox-row">
+          <div class="auth-wrapper-label"><label for="password-repeat-new">Repetir contraseña nueva</label></div>
+          <input type="password" name="password-repeat-new" placeholder="repeat new password">
+        </div>
+ 
+
+                    <button class="btn-confirm" type='submit'>Cambiar datos</button>
+
       </form>
     </div>
     <div>
