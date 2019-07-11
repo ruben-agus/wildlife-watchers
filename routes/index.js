@@ -74,11 +74,11 @@ router.get("/post-list", (req, res, next) => {
 router.post("/post-list", uploadCloud.single("image"), 
 (req, res, next) => {
   Post.create({
-    authotId: req.body.authotId,
+    authorId: req.body.authorId,
     title: req.body.title,
     content: req.body.content,
     postImg: req.file.url
-    
+
   })
     .then(postNew => {
       res.redirect("/post-list");
@@ -87,11 +87,6 @@ router.post("/post-list", uploadCloud.single("image"),
       console.log(err);
     });
 });
-//   // authorId: req.user._id,
-//   postImg: {
-//     url: path,
-//     originalName: oriName
-// }
 
 router.get("/edit-post/:id", ensureLogin.ensureLoggedIn(), (req, res, next) => {
   Post.findById(req.params.id)
@@ -134,7 +129,9 @@ router.post(
 
 router.get("/post-detail/:id", (req, res, next) => {
   Post.findOne({ _id: req.params.id })
-     .populate("authorId")
+    .populate("authorId")
+    .populate("comments")
+
     .then(postDetails => {
       // if (
       //   req.session.passport.user.toString() ===
@@ -142,6 +139,7 @@ router.get("/post-detail/:id", (req, res, next) => {
       // ) {
       //   postDetails.youAreTheOwnerOfThisPost = true;
       // }
+      console.log(postDetails)
       res.render("post-details", postDetails);
     })
     .catch(err => {
@@ -180,7 +178,7 @@ router.get("/create-comment/",  (req, res, next) => {
 // ensureLogin.ensureLoggedIn(),
 router.post("/create-comment",  (req, res, next) => {
   Comment.create({
-    authotId: req.body.authotId,
+    authorId: req.body.authorId,
         title: req.body.title,
         content: req.body.content,
       },{ new: true })
