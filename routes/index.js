@@ -46,6 +46,26 @@ router.get("/profile", (req, res, next) => {
   if (!req.user) {
     res.redirect("/auth/login");
   }
+  
+  if (req.user.postNum >= 5) {
+    User.findByIdAndUpdate(req.user._id, {
+      skill: "Descubridor"
+    }, {new: true}).then(userFound => {
+      res.render("profile", userFound)
+    })
+  } else if (req.user.postNum >= 10) {
+    User.findByIdAndUpdate(req.user._id, {
+      skill: "Experto"
+    }, {new: true}).then(userFound => {
+      res.render("profile", userFound)
+    }) 
+  } else if (req.user.postNum >= 20) {
+    User.findByIdAndUpdate(req.user._id, {
+      skill: "Jacques Costeau"
+    }).then(userFound => {
+      res.render("profile", userFound)
+    }, {new: true})
+  }
   res.render("profile");
 });
 
@@ -181,12 +201,12 @@ router.get("/post-detail/:id", (req, res, next) => {
     })
 
     .then(postDetails => {
-      // if (
-      //   req.session.passport.user.toString() ===
-      //   postDetails.authorId._id.toString()
-      // ) {
-      //   postDetails.youAreTheOwnerOfThisPost = true;
-      // }
+      if (
+        req.session.passport.user.toString() ===
+        postDetails.authorId._id.toString()
+      ) {
+        postDetails.youAreTheOwnerOfThisPost = true;
+      }
       console.log(postDetails);
       res.render("post-details", postDetails);
     })

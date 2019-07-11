@@ -1,3 +1,4 @@
+@charset "UTF-8";
 * {
   box-sizing: border-box; }
 
@@ -109,6 +110,9 @@ nav div {
 .change-picture {
   align-items: center; }
 
+.background-index {
+  background-image: url(/public/images/otoño.jpg); }
+
 .home-wrapper {
   display: flex;
   flex-direction: column;
@@ -130,7 +134,7 @@ nav div {
   justify-content: center;
   border: 1px solid black;
   border-radius: 10px;
-  padding: 20px;
+  padding: 1rem;
   width: 25vw; }
 
 .post-collection h2 {
@@ -139,13 +143,16 @@ nav div {
   margin-bottom: 2rem; }
 
 .post-preview img {
-  width: 250px;
+  width: 15rem;
   margin-bottom: 1.5rem;
   border-radius: 2rem; }
 
 .post-title {
   margin-bottom: 0.7rem;
   font-size: 1.2rem; }
+
+#lng, #lat {
+  display: none; }
 
 .post-title h3 {
   font-size: 1.5rem;
@@ -177,6 +184,19 @@ nav div {
   font-size: 1.5rem;
   margin-bottom: 0.5rem;
   text-align: justify; }
+
+.forum-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 2rem;
+  width: 80vw;
+  justify-content: space-between; }
+
+.forum-title {
+  font-size: 3.5rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem; }
 
 .forum-wrapper {
   display: flex;
@@ -266,6 +286,9 @@ nav div {
 
 .centerbtn {
   justify-content: center; }
+
+.centerhx {
+  align-items: center; }
 
 .create-comment-btn {
   display: flex;
