@@ -100,10 +100,11 @@ User.remove()
   .then(x => {
     let userId;
     let userBId;
+    let createdCommentPayload, createdCommentPayload2;
 
     User.create(exampleUsers)
       .then(createdUsers => {
-        console.log(createdUsers)
+        console.log(createdUsers);
         userId = createdUsers[0]._id;
         userBId = createdUsers[1]._id;
         return Comment.create([
@@ -111,13 +112,25 @@ User.remove()
         ]);
       })
       .then(createdComment => {
+        createdCommentPayload = createdComment;
+
+        return Comment.create([
+          { content: '"Comment2 with Dani"', authorId: userId }
+        ]);
+      })
+      .then(createdComment2 => {
+        createdCommentPayload2 = createdComment2;
+
         return Post.create([
           {
             title: "Esto es un coyote",
             content: "Los coyotes os comen desde el cogote",
             authorId: userBId,
             postImg: "https://i.ytimg.com/vi/XOj6xGKEsUw/maxresdefault.jpg",
-            comments: [createdComment[0]._id]
+            comments: [
+              createdCommentPayload[0]._id,
+              createdCommentPayload2[0]._id
+            ]
           }
         ]);
       })
