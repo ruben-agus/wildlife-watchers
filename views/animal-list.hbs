@@ -1,10 +1,12 @@
-<h1>Lista de animales encontrados</h1>
+<section>
+  <h1>Lista de animales encontrados</h1>
 
-<ul>
   {{#each animal}}
-  <li>{{this.name}}</li>
-  <li>{{this.description}}</li>
-  <li><img src="{{this.animalImg.url}}" alt=""></li>
-  <li>{{this.location}} </li>
+<div class="border">
+  {{this.name}}
+  {{this.description}}
+  <img src="{{this.animalImg.url}}" alt="">
+  {{this.location}} 
+</div>
   {{/each}}
-</ul>
+</section>

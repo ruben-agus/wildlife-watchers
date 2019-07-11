@@ -1,9 +1,9 @@
 <section class="container">
 
 
-    <div class="post-detail-flexbox-row"> 
+    <div class="post-detail-flexbox-row">
         <h2>POST DEL FORO</h2>
-    {{#if youAreTheOwnerOfThisPost}}
+        {{#if youAreTheOwnerOfThisPost}}
         <a href="/edit-post/{{this._id}}">
             <button>Edit my post</button>
         </a>
@@ -11,8 +11,8 @@
 
             <button oncdivck="Submit">Delete</button>
         </form>
-    {{/if}}
-    </div> 
+        {{/if}}
+    </div>
     <div class="post-details-view">
         <div class="post-details-content">
             <h1>{{title}}</h1>
@@ -23,16 +23,23 @@
         </div>
     </div>
 
-        <a href="/create-comment">
-            <button>Create Comment</button>
-        </a>
 
 
-            <div class="post-details-content">
-            {{#each comments}}
-                <div>{{this.authorId.username}}</div> 
-                <div>{{this.content}}</div>
-            {{/each}}
-            </div>
+    <div>
+        <div>
+            <a href="/create-comment">
+                <button>Create Comment</button>
+            </a>
+        </div>
+        {{#each comments}}
+        <div>
+            <ul class="comment-details , comment-details-view">
+                <li>{{this.authorId.username}}
+                    <br>{{this.content}}</li>
+            </ul>
+        </div>
+        {{/each}}
+    </div>
 
 </section>
+
