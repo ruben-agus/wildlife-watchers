@@ -1,4 +1,19 @@
 
+<section class="container">
+<div class="post-details-view">
+     <h1>POSTS DEL FORO</h1>
+
+<div class="post-details-content">
+    
+  <div><h2>{{title}}</h2></div>
+
+  <div><img src="{{postImg}}" alt=""></div>
+
+  <div><h3>{{content}}</h3></div>
+
+  <div>{{comments.content}}</div>
+
+<div>
 <a href="/create-comment">
     <button>Create Comment</button>
 </a>
@@ -9,22 +24,12 @@
 <form action="/edit-post/{{this.id}}/delete" method="POST">
             <button onclick="Submit">Delete</button>
         </form>
-
-
-
 {{/if}}
-<div class="post-collection">
-     <h2>Posts del foro</h2>
-<div class="post-preview">
-    <ul>
-  <li>{{title}}</li>
-  <li>{{content}}</li>
-  <li><img src="{{postImg}}" alt=""></li>
-  <li>{{comments.content}}</li>
-</ul>
+</div>
 </div>
 </div>
 
 {{!-- <a href="/edit-post/{{this._id}}">
     <button>Edit my post</button>
 </a> --}}
+</section>
