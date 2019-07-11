@@ -235,17 +235,18 @@ nav div {
 
 
 
+
 /////clases Agus
 .forum-wrapper{
   display:flex;
   flex-wrap: wrap;
   justify-content: space-around;
 }
-.padding-for-ul{
+.forum-wrapper ul{
 padding: 1rem;
 }
 
-.post-preview-forum {
+.forum-wrapper img {
   width: 15rem;
   height:15rem;
   // length:25rem;
@@ -254,19 +255,69 @@ padding: 1rem;
 }
 
 
-.forum-post-title {
+.forum-wrapper h3 {
   font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 0.7rem;
 }
 
-.forum-post-title a{
+.forum-wrapper h4 {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 0.7rem;
+}
+
+.forum-wrapper a{
   text-decoration: none;
   color: black;
 }
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.post-details-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 20px;
+  width: 25rem;
+}
+
+.post-details-view h1{
+  font-size:3.5rem;
+  text-align: center;
+}
+.post-details-view h2{
+  font-size:2.5rem
+}
+
+.post-details-content {
+  width: 250px;
+  margin-bottom: 1.5rem;
+  border-radius: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  img {
+    width: 10rem;
+    height: 10rem;
+
+  }
+
+  div{
+    margin-top:2rem;
+  }
+}
 ////////
 
-#map {
+ #map {
   width: 70vw;
   height: 70vh;
 }
