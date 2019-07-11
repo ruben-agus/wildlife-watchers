@@ -11,6 +11,9 @@ const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcrypt");
 const bcryptSalt = 10;
 
+const ExifImage = require('exif').ExifImage;
+
+
 const ensureLogin = require("connect-ensure-login");
 const uploadCloud = require("../config/cloudinary.js");
 const multer = require("multer");
@@ -97,16 +100,28 @@ router.get("/post-list", (req, res, next) => {
     });
 });
 
+
 router.post("/post-list", uploadCloud.single("image"), (req, res, next) => {
+  
   Post.create({
     authorId: req.user._id,
     title: req.body.title,
     content: req.body.content,
     postImg: req.file.url
   })
-  // User.findByIdAndUpdate(req.user._id,{
-  //   num
-  // } )
+
+  Animal.create({
+    name: req.body.animal,
+    animalImg:{
+      url: req.file.url,
+      originalName: req.file.url
+    },
+  })
+
+  User.findByIdAndUpdate(req.user._id,{$set:{postNum: req.user.postNum + 1}
+  })
+
+  // if (User.find(req.user._id))
     .then(postNew => {
       res.redirect("/post-list");
     })
