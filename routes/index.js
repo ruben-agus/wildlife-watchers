@@ -116,6 +116,9 @@ router.post("/post-list", uploadCloud.single("image"), (req, res, next) => {
       url: req.file.url,
       originalName: req.file.url
     },
+    location: {
+      type: "Point" , coordinates: [+req.body.lng, +req.body.lat]
+    },
   })
 
   User.findByIdAndUpdate(req.user._id,{$set:{postNum: req.user.postNum + 1}

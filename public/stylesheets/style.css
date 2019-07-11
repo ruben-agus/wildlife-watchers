@@ -260,6 +260,10 @@ nav div {
 .comment-details-view {
   background: #8a4348; }
 
+#choose-map {
+  width: 70vw;
+  height: 70vh; }
+
 .centerbtn {
   justify-content: center; }
 
@@ -268,13 +272,6 @@ nav div {
   flex-direction: column;
   align-items: center;
   justify-content: center; }
-
-img {
-  width: 10rem;
-  height: 10rem; }
-
-div {
-  margin-top: 2rem; }
 
 #map {
   width: 70vw;
