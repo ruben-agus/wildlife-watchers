@@ -233,6 +233,39 @@ nav div {
   text-align: justify;
 }
 
+
+
+/////clases Agus
+.forum-wrapper{
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.padding-for-ul{
+padding: 1rem;
+}
+
+.post-preview-forum {
+  width: 15rem;
+  height:15rem;
+  // length:25rem;
+  margin-bottom: 1.5rem;
+  border-radius: 2rem;
+}
+
+
+.forum-post-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.7rem;
+}
+
+.forum-post-title a{
+  text-decoration: none;
+  color: black;
+}
+////////
+
 #map {
   width: 70vw;
   height: 70vh;
