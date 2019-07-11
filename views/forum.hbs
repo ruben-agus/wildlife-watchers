@@ -1,22 +1,19 @@
-Welcome to the wildlife forum association
-pribando pribando
-{{#each post}}
-<div><ul>
-  <li><a href="/post-detail/{{this._id}}">{{this.title}}</a></li>
-  <li>{{this.content}}</li>
-  <li><img src="{{this.postImg}}" alt=""></li>
+<div class=class="flexbox-row">
+  Welcome to the wildlife forum association
+  pribando pribando
+  {{#if user}}
+    <a href="/create-post"class="button">
+      <button >Create New Post</button>
+    </a>
+  {{/if}}
+  </div>
 
-</ul>
+<div class="forum-wrapper" >
+  {{#each post}}
+    <ul class="padding-for-ul" >
+      <li class="forum-post-title"> <h3><a href="/post-detail/{{this._id}}">{{this.title}}</a></h3> </li>
+      <li>{{this.content}}</li>
+      <li><img class="post-preview-forum" src="{{this.postImg}}" alt=""></li>
+    </ul>
+  {{/each}}
 </div>
-{{/each}}
-
-
-
-
-{{#if user}}
-<a href="/create-post">
-    <button>Create New Post</button>
-</a>
-{{/if}}
-
-
