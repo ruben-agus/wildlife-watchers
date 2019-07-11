@@ -55,12 +55,14 @@ router.post(
   }
 );
 
-router.get("/create-post", uploadCloud.single("image"), (req, res, next) => {
+router.get("/create-post", uploadCloud.single("image"),
+ (req, res, next) => {
   res.render("create-post");
 });
 
 router.get("/post-list", (req, res, next) => {
   Post.find()
+  .populate("authorId")
     .then(post => {
       res.render("forum", { post });
     })
@@ -76,6 +78,7 @@ router.post("/post-list", uploadCloud.single("image"),
     title: req.body.title,
     content: req.body.content,
     postImg: req.file.url
+
   })
     .then(postNew => {
       res.redirect("/post-list");
@@ -84,7 +87,6 @@ router.post("/post-list", uploadCloud.single("image"),
       console.log(err);
     });
 });
-
 
 router.get("/edit-post/:id", ensureLogin.ensureLoggedIn(), (req, res, next) => {
   Post.findById(req.params.id)
@@ -129,6 +131,7 @@ router.get("/post-detail/:id", (req, res, next) => {
   Post.findOne({ _id: req.params.id })
     .populate("authorId")
     .populate("comments")
+
     .then(postDetails => {
       // if (
       //   req.session.passport.user.toString() ===
@@ -143,6 +146,14 @@ router.get("/post-detail/:id", (req, res, next) => {
       console.log(err);
     });
 });
+
+
+router.post('/post-detail/:id/delete', (req, res) => {
+  Post.findByIdAndRemove({_id:req.params.id},  (err, celebrity) => {
+    res.redirect("/post-detail")
+  })
+});
+
 
 
 
