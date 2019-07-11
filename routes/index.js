@@ -17,6 +17,7 @@ const ExifImage = require('exif').ExifImage;
 const ensureLogin = require("connect-ensure-login");
 const uploadCloud = require("../config/cloudinary.js");
 const multer = require("multer");
+const nodemailer = require("nodemailer")
 
 /* GET home page */
 
@@ -259,5 +260,8 @@ router.get("/map", (req, res, next) => {
     res.render("map", animal);
   });
 });
+
+
+
 
 module.exports = router;
