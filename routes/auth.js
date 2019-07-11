@@ -50,9 +50,9 @@ router.post("/signup", uploadCloud.single("picture"), (req, res, next) => {
       username,
       password: hashPass,
       picture: {
-        url:imageAvatar,
+        url: imageAvatar,
         originalName: imageAvName
-      },
+      }
     });
 
     newUser
@@ -72,10 +72,9 @@ router.get("/logout", (req, res) => {
 });
 
 router.get("/json", (req, res) => {
-  Animal.find()
-  .then(JSONPayLoad =>{
-    res.json(JSONPayLoad)
-  } )
+  Animal.find().then(JSONPayLoad => {
+    res.json(JSONPayLoad);
+  });
 });
 
 module.exports = router;

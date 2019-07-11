@@ -2,18 +2,22 @@
   Welcome to the wildlife forum association
   pribando pribando
   {{#if user}}
-    <a href="/create-post"class="button">
-      <button >Create New Post</button>
-    </a>
+  <a href="/create-post" class="button">
+    <button>Create New Post</button>
+  </a>
   {{/if}}
-  </div>
+</div>
 
-<div class="forum-wrapper" >
+<div class="forum-wrapper">
   {{#each post}}
-    <ul  >
-      <li><h3><a href="/post-detail/{{this._id}}">{{this.title}}</a></h3> </li>
-      <li><h4>{{this.content}}</h4></li>
-      <li><img src="{{this.postImg}}" alt=""></li>
-    </ul>
+  <ul>
+    <li>
+      <h3><a href="/post-detail/{{this._id}}">{{this.title}}</a></h3>
+    </li>
+    <li>
+      <h4>{{this.content}}</h4>
+    </li>
+    <li><img src="{{this.postImg}}" alt=""></li>
+  </ul>
   {{/each}}
 </div>
