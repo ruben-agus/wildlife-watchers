@@ -1,13 +1,9 @@
 <form action="/edit-post/{{this.postDetail._id}}" method="POST" enctype="multipart/form-data" id="form-container">
-{{!-- {{postDetail._id}} --}}
+  {{!-- {{postDetail._id}} --}}
   <label>Editar Post</label>
   <input type="text" name="title" value="{{this.postDetail.title}}">
   <input type="text" name="content" value="{{this.postDetail.content}}">
   <input type="file" name="postImage" value="{{this.postDetail.postImg}}">
-  {{!-- <inpput type="text" name="id" value="{{this.postDetail._id}}"> --}}
 
   <button type='submit'>Editar post</button>
 </form>
-
-
-

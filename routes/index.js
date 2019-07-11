@@ -8,6 +8,9 @@ const Comment = require("../models/Comment");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 
+const bcrypt = require("bcrypt");
+const bcryptSalt = 10;
+
 const ensureLogin = require("connect-ensure-login");
 const uploadCloud = require("../config/cloudinary.js");
 const multer = require("multer");
@@ -26,31 +29,55 @@ router.get("/", (req, res, next) => {
   //  })
   Post.find()
     .populate("authorId")
+    .sort({created_at: -1})
+    .limit(3)
     .then(postC => {
-      res.render("index", { user: req.user, postC: postC });
+      res.render("index", {postC: postC });
     })
     .catch(err => {
       console.log(err);
     });
 });
 
-router.get("/profile", ensureLogin.ensureLoggedIn(), (req, res, next) => {
-  res.render("profile", { user: req.user });
+router.get("/profile", (req, res, next) => {
+  if (!req.user) {
+    res.redirect("/auth/login");
+  }
+  res.render("profile");
 });
+
 
 router.post(
   "/profile-edit/:id",
   ensureLogin.ensureLoggedIn(),
   uploadCloud.single("image"),
   (req, res, next) => {
-    User.findByIdAndUpdate(
-      req.user._id,
-      {
-        picture: { url: req.file.url }
-      },
-      { new: true }
-    ).then(updatedUser => {
-      res.render("profile", { user: updatedUser });
+    User.findById(req.user._id)
+    .then(foundUser => {
+      if (!bcrypt.compareSync(req.body["password-old"], foundUser.password)) {
+        foundUser.errorMessage = "Incorrect password";
+
+        res.render("profile", foundUser);
+        return;
+      }
+
+      if (req.body["password-new"] !== req.body["password-repeat-new"]) {
+        foundUser.errorMessage = "New password doesnt match";
+        res.render("profile", foundUser);
+        return;
+      }
+
+      const bcryptSalt = 10;
+      const salt = bcrypt.genSaltSync(bcryptSalt);
+      const hashPass = bcrypt.hashSync(req.body["password-new"], salt);
+
+      User.findByIdAndUpdate(
+        req.user._id,
+        { password: hashPass, picture: { url: req.file.url } },
+        { new: true }
+      ).then(updatedUser => {
+        res.render("profile", {user: updatedUser} );
+      });
     });
   }
 );
@@ -72,11 +99,14 @@ router.get("/post-list", (req, res, next) => {
 
 router.post("/post-list", uploadCloud.single("image"), (req, res, next) => {
   Post.create({
-    authorId: req.body.authorId,
+    authorId: req.user._id,
     title: req.body.title,
     content: req.body.content,
     postImg: req.file.url
   })
+  // User.findByIdAndUpdate(req.user._id,{
+  //   num
+  // } )
     .then(postNew => {
       res.redirect("/post-list");
     })
@@ -173,7 +203,7 @@ router.get("/create-comment/", (req, res, next) => {
 router.post("/create-comment", (req, res, next) => {
   Comment.create(
     {
-      authorId: req.body.authorId,
+      authorId: req.user._id,
       title: req.body.title,
       content: req.body.content
     },
