@@ -55,14 +55,13 @@ router.post(
   }
 );
 
-router.get("/create-post", uploadCloud.single("image"),
- (req, res, next) => {
+router.get("/create-post", uploadCloud.single("image"), (req, res, next) => {
   res.render("create-post");
 });
 
 router.get("/post-list", (req, res, next) => {
   Post.find()
-  .populate("authorId")
+    .populate("authorId")
     .then(post => {
       res.render("forum", { post });
     })
@@ -71,14 +70,12 @@ router.get("/post-list", (req, res, next) => {
     });
 });
 
-router.post("/post-list", uploadCloud.single("image"), 
-(req, res, next) => {
+router.post("/post-list", uploadCloud.single("image"), (req, res, next) => {
   Post.create({
     authorId: req.body.authorId,
     title: req.body.title,
     content: req.body.content,
     postImg: req.file.url
-
   })
     .then(postNew => {
       res.redirect("/post-list");
@@ -100,8 +97,6 @@ router.get("/edit-post/:id", ensureLogin.ensureLoggedIn(), (req, res, next) => {
     });
 });
 
-
-
 router.post(
   "/edit-post/:id",
   uploadCloud.single("postImage"),
@@ -114,9 +109,8 @@ router.post(
         title: req.body.title,
         content: req.body.content,
         postImg: req.file.url
-      }
-       ,
-        { new: true }
+      },
+      { new: true }
     )
       .then(editedPost => {
         res.redirect("/post-list");
@@ -130,7 +124,13 @@ router.post(
 router.get("/post-detail/:id", (req, res, next) => {
   Post.findOne({ _id: req.params.id })
     .populate("authorId")
-    .populate("comments")
+    .populate({
+      path: "comments",
+      populate: {
+        path: "authorId",
+        model: "User"
+      }
+    })
 
     .then(postDetails => {
       // if (
@@ -139,7 +139,7 @@ router.get("/post-detail/:id", (req, res, next) => {
       // ) {
       //   postDetails.youAreTheOwnerOfThisPost = true;
       // }
-      console.log(postDetails)
+      console.log(postDetails);
       res.render("post-details", postDetails);
     })
     .catch(err => {
@@ -147,15 +147,11 @@ router.get("/post-detail/:id", (req, res, next) => {
     });
 });
 
-
-router.post('/post-detail/:id/delete', (req, res) => {
-  Post.findByIdAndRemove({_id:req.params.id},  (err, celebrity) => {
-    res.redirect("/post-detail")
-  })
+router.post("/post-detail/:id/delete", (req, res) => {
+  Post.findByIdAndRemove({ _id: req.params.id }, (err, celebrity) => {
+    res.redirect("/post-detail");
+  });
 });
-
-
-
 
 router.get("/animal-list", (req, res, next) => {
   Animal.find()
@@ -167,28 +163,29 @@ router.get("/animal-list", (req, res, next) => {
     });
 });
 
-
-router.get("/create-comment/",  (req, res, next) => {
-  Comment
-  .find()
-  .populate("authorId")
-  .populate("comments")
+router.get("/create-comment/", (req, res, next) => {
+  Comment.find()
+    .populate("authorId")
+    .populate("comments");
   res.render("create-comment");
 });
 // ensureLogin.ensureLoggedIn(),
-router.post("/create-comment",  (req, res, next) => {
-  Comment.create({
-    authorId: req.body.authorId,
-        title: req.body.title,
-        content: req.body.content,
-      },{ new: true })
-        .then(postNew => {
-          res.redirect("/create-comment");
-        })
-        .catch(err => {
-          console.log(err);
-        });
-      });
+router.post("/create-comment", (req, res, next) => {
+  Comment.create(
+    {
+      authorId: req.body.authorId,
+      title: req.body.title,
+      content: req.body.content
+    },
+    { new: true }
+  )
+    .then(postNew => {
+      res.redirect("/create-comment");
+    })
+    .catch(err => {
+      console.log(err);
+    });
+});
 router.get("/map", (req, res, next) => {
   Animal.find().then(animal => {
     res.render("map", animal);
@@ -196,6 +193,3 @@ router.get("/map", (req, res, next) => {
 });
 
 module.exports = router;
-
-
-
