@@ -9,6 +9,11 @@
 <a href="/edit-post/{{this._id}}">
     <button>Edit my post</button>
 </a>
+
+
+<form action="/edit-post/{{this.id}}/delete" method="POST">
+            <button onclick="Submit">Delete</button>
+        </form>
 {{/if}}
 <div><ul>
   <li>{{title}}</li>
