@@ -1,4 +1,3 @@
-
 <a href="/create-comment">
     <button>Create Comment</button>
 </a>
@@ -7,22 +6,29 @@
     <button>Edit my post</button>
 </a>
 <form action="/edit-post/{{this.id}}/delete" method="POST">
-            <button onclick="Submit">Delete</button>
-        </form>
+    <button onclick="Submit">Delete</button>
+</form>
 
 
 
 {{/if}}
 <div class="post-collection">
-     <h2>Posts del foro</h2>
-<div class="post-preview">
-    <ul>
-  <li>{{title}}</li>
-  <li>{{content}}</li>
-  <li><img src="{{postImg}}" alt=""></li>
-  <li>{{comments.content}}</li>
-</ul>
-</div>
+    <h2>Posts del foro</h2>
+    <div class="post-preview">
+        <ul>
+            <li>{{title}}</li>
+            <li>{{content}}</li>
+            <li><img src="{{postImg}}" alt=""></li>
+           
+            <li>
+                <ul>
+                   {{#each comments}} 
+                    <li>{{this.authorId.username}} {{this.content}}</li>
+                   {{/each}} 
+                </ul>
+            </li>
+        </ul>
+    </div>
 </div>
 
 {{!-- <a href="/edit-post/{{this._id}}">

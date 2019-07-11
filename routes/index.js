@@ -7,8 +7,6 @@ const Comment = require("../models/Comment");
 // Add passport
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
-const bcrypt = require("bcrypt");
-const bcryptSalt = 10;
 
 const ensureLogin = require("connect-ensure-login");
 const uploadCloud = require("../config/cloudinary.js");
@@ -26,25 +24,18 @@ router.get("/", (req, res, next) => {
   //     console.log(err)
   // })
   //  })
-  
   Post.find()
     .populate("authorId")
-    .sort({created_at: -1})
-    .limit(3)
     .then(postC => {
-      console.log(postC)
-      res.render("index", { postC: postC });
+      res.render("index", { user: req.user, postC: postC });
     })
     .catch(err => {
       console.log(err);
     });
 });
 
-router.get("/profile", (req, res, next) => {
-  if (!req.user) {
-    res.redirect("/auth/login");
-  }
-  res.render("profile");
+router.get("/profile", ensureLogin.ensureLoggedIn(), (req, res, next) => {
+  res.render("profile", { user: req.user });
 });
 
 router.post(
@@ -52,32 +43,14 @@ router.post(
   ensureLogin.ensureLoggedIn(),
   uploadCloud.single("image"),
   (req, res, next) => {
-    User.findById(req.user._id)
-    .then(foundUser => {
-      if (!bcrypt.compareSync(req.body["password-old"], foundUser.password)) {
-        foundUser.errorMessage = "Incorrect password";
-
-        res.render("profile", foundUser);
-        return;
-      }
-
-      if (req.body["password-new"] !== req.body["password-repeat-new"]) {
-        foundUser.errorMessage = "New password doesnt match";
-        res.render("profile", foundUser);
-        return;
-      }
-
-      const bcryptSalt = 10;
-      const salt = bcrypt.genSaltSync(bcryptSalt);
-      const hashPass = bcrypt.hashSync(req.body["password-new"], salt);
-
-      User.findByIdAndUpdate(
-        req.user._id,
-        { password: hashPass, picture: { url: req.file.url } },
-        { new: true }
-      ).then(updatedUser => {
-        res.render("profile", {user: updatedUser} );
-      });
+    User.findByIdAndUpdate(
+      req.user._id,
+      {
+        picture: { url: req.file.url }
+      },
+      { new: true }
+    ).then(updatedUser => {
+      res.render("profile", { user: updatedUser });
     });
   }
 );
@@ -99,7 +72,7 @@ router.get("/post-list", (req, res, next) => {
 
 router.post("/post-list", uploadCloud.single("image"), (req, res, next) => {
   Post.create({
-    authorId: req.user._id,
+    authorId: req.body.authorId,
     title: req.body.title,
     content: req.body.content,
     postImg: req.file.url
@@ -151,7 +124,13 @@ router.post(
 router.get("/post-detail/:id", (req, res, next) => {
   Post.findOne({ _id: req.params.id })
     .populate("authorId")
-    .populate("comments")
+    .populate({
+      path: "comments",
+      populate: {
+        path: "authorId",
+        model: "User"
+      }
+    })
 
     .then(postDetails => {
       // if (

@@ -7,7 +7,7 @@ const postSchema = new Schema({
    
   title: String,
   content: String, 
-  comments:  {type:Schema.Types.ObjectId, ref:"Comment"},
+  comments: [{type:Schema.Types.ObjectId, ref:"Comment"}] ,
   // location:{type:{type:String}, coordinates:[Number] } 
 
 },
