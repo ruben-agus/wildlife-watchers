@@ -4,10 +4,38 @@
   <input type="text" name="title" placeholder="Da un título a tu post " value="title">
   <input type="text" name="content" value="content" placeholder="Describe cuando, cómo y dónde obtuviste esta foto">
   <input type="file" name="image" id="">
+
+  <input id="lat" type="text" name="lat">
+    <input id="lng" type="text" name="lng">
+
+    <p class="lat"></p>
+
   <button type='submit'>Crear Post</button>
 </form>
 
 
+<div id="choose-map"></div>
+
+{{!-- 
+<form action="/movie-creation" method="POST" enctype="multipart/form-data" id="movie-creation">
+  <div class="form-elements-wrapper">
+    <div class="form-elements">
+      <input type="text" name="name" placeholder="name" value="test">
+      <input type="text" name="year" placeholder="year" value="1999">
+      <input type="text" name="linkIMDB" placeholder="linkIMDB"
+        value="https://www.imdb.com/title/tt0091605/?ref_=fn_al_tt_2">
+      <input type="file" name="photo">
+      <input type="text" name="city" placeholder="city" value="new york">
+      <input type="text" name="country" placeholder="country" value="US">
+      <button id="save-movie">Save new movie</button>
+    </div>
+
+    <div class="map-wrapper">
+      <input type="text" id="search-box">
+      <div id="map"></div>
+    </div>
+  </div>
+</form> --}}
 
 
 
@@ -17,3 +45,4 @@
 
 
 <script src="https://maps.googleapis.com/maps/api/js?key={{GOOGLEMAPSAPIKEY}}&libraries=places"></script>
+<script type="text/javascript" src="/javascripts/mapa.js"></script>
