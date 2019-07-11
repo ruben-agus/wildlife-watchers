@@ -1,13 +1,15 @@
-<div class=class="flexbox-row">
-  Welcome to the wildlife forum association
-  pribando pribando
+<section>
+  <div class="auth-wrapper centerhx">
+<div class="forum-header space">
+  
+ <h1 class="forum-title">Galería de posts</h1> 
   {{#if user}}
   <a href="/create-post" class="button">
-    <button>Create New Post</button>
+    <button class="btn-confirm"> Nuevo Post</button>
   </a>
   {{/if}}
 </div>
-
+</div>
 <div class="forum-wrapper">
   {{#each post}}
   <ul>
@@ -21,3 +23,5 @@
   </ul>
   {{/each}}
 </div>
+
+</section>
