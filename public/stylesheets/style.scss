@@ -37,6 +37,13 @@ button {
   max-width: 15rem;
 }
 
+.btn-confirm-comment {
+  background-color: #006e2e;
+  color: #b3dfff;
+  max-width: 15rem;
+  margin-top: 2.5rem;
+}
+
 nav {
   display: flex;
   flex-direction: row;
@@ -108,7 +115,7 @@ nav div {
   font-weight: bold;
   font-size: 2.3rem;
   margin-bottom: 3rem;
-
+  
 }
 
 .auth-wrapper-label {
@@ -150,9 +157,8 @@ nav div {
 }
 
 .background-index{
-  background-image: url("../images/otoño.jpg");
-  background-color: transparent;
-}
+  background: url("../images/otoño.jpg");
+  }
 
 .home-wrapper {
   display: flex;
@@ -370,6 +376,9 @@ margin-bottom: 1.5rem;
   justify-content: center;
 }
 
+.padding{
+  padding-top: 2rem
+}
 
 
 ////////
