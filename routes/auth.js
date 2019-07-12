@@ -10,7 +10,6 @@ const uploadCloud = require("../config/cloudinary.js");
 const bcrypt = require("bcrypt");
 const bcryptSalt = 10;
 const multer = require("multer");
-const nodemailer = require("nodemailer"); //// nodemailer
 
 
 router.get("/login", (req, res, next) => {
