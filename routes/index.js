@@ -211,12 +211,12 @@ router.get("/post-detail/:id", (req, res, next) => {
     })
 
     .then(postDetails => {
-      // if (
-      //   req.session.passport.user.toString() ===
-      //   postDetails.authorId._id.toString()
-      // ) {
-      //   postDetails.youAreTheOwnerOfThisPost = true;
-      // }
+      if (
+        req.session.passport.user.toString() ===
+        postDetails.authorId._id.toString()
+      ) {
+        postDetails.youAreTheOwnerOfThisPost = true;
+      }
 
       console.log(postDetails);
       res.render("post-details", postDetails);
@@ -226,9 +226,14 @@ router.get("/post-detail/:id", (req, res, next) => {
     });
 });
 
+router.delete("/deletePost/:id", (req, res) =>{
+  Post.findByIdAndDelete(req.params.id)
+  .then(x => res.json({removed: true} ))
+}  )
+
 router.post("/post-detail/:id/delete", (req, res) => {
-  Post.findByIdAndRemove({ _id: req.params.id }, (err, celebrity) => {
-    res.redirect("/post-detail");
+  Post.findByIdAndRemove({ _id: req.params.id }, (err, post) => {
+    res.redirect("/post-list");
   });
 });
 
