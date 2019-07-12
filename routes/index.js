@@ -11,8 +11,7 @@ const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcrypt");
 const bcryptSalt = 10;
 
-const ExifImage = require('exif').ExifImage;
-
+const ExifImage = require("exif").ExifImage;
 
 const ensureLogin = require("connect-ensure-login");
 const uploadCloud = require("../config/cloudinary.js");
@@ -33,10 +32,10 @@ router.get("/", (req, res, next) => {
   //  })
   Post.find()
     .populate("authorId")
-    .sort({created_at: -1})
+    .sort({ created_at: -1 })
     .limit(3)
     .then(postC => {
-      res.render("index", {postC: postC });
+      res.render("index", { postC: postC });
     })
     .catch(err => {
       console.log(err);
@@ -47,37 +46,46 @@ router.get("/profile", (req, res, next) => {
   if (!req.user) {
     res.redirect("/auth/login");
   }
-  
+
   if (req.user.postNum >= 5) {
-    User.findByIdAndUpdate(req.user._id, {
-      skill: "Descubridor"
-    }, {new: true}).then(userFound => {
-      res.render("profile", userFound)
-    })
+    User.findByIdAndUpdate(
+      req.user._id,
+      {
+        skill: "Descubridor"
+      },
+      { new: true }
+    ).then(userFound => {
+      res.render("profile", userFound);
+    });
   } else if (req.user.postNum >= 10) {
-    User.findByIdAndUpdate(req.user._id, {
-      skill: "Experto"
-    }, {new: true}).then(userFound => {
-      res.render("profile", userFound)
-    }) 
+    User.findByIdAndUpdate(
+      req.user._id,
+      {
+        skill: "Experto"
+      },
+      { new: true }
+    ).then(userFound => {
+      res.render("profile", userFound);
+    });
   } else if (req.user.postNum >= 20) {
     User.findByIdAndUpdate(req.user._id, {
       skill: "Jacques Costeau"
-    }).then(userFound => {
-      res.render("profile", userFound)
-    }, {new: true})
+    }).then(
+      userFound => {
+        res.render("profile", userFound);
+      },
+      { new: true }
+    );
   }
   res.render("profile");
 });
-
 
 router.post(
   "/profile-edit/:id",
   ensureLogin.ensureLoggedIn(),
   uploadCloud.single("image"),
   (req, res, next) => {
-    User.findById(req.user._id)
-    .then(foundUser => {
+    User.findById(req.user._id).then(foundUser => {
       if (!bcrypt.compareSync(req.body["password-old"], foundUser.password)) {
         foundUser.errorMessage = "Incorrect password";
 
@@ -100,7 +108,7 @@ router.post(
         { password: hashPass, picture: { url: req.file.url } },
         { new: true }
       ).then(updatedUser => {
-        res.render("profile", {user: updatedUser} );
+        res.render("profile", { user: updatedUser });
       });
     });
   }
@@ -121,32 +129,32 @@ router.get("/post-list", (req, res, next) => {
     });
 });
 
-
 router.post("/post-list", uploadCloud.single("image"), (req, res, next) => {
-  
   Post.create({
     authorId: req.user._id,
     title: req.body.title,
     content: req.body.content,
     postImg: req.file.url
-  })
+  });
 
   Animal.create({
     name: req.body.animal,
     description: req.body.description,
-    animalImg:{
+    animalImg: {
       url: req.file.url,
       originalName: req.file.url
     },
     location: {
-      type: "Point" , coordinates: [+req.body.lng, +req.body.lat]
-    },
+      type: "Point",
+      coordinates: [+req.body.lng, +req.body.lat]
+    }
+  });
+
+  User.findByIdAndUpdate(req.user._id, {
+    $set: { postNum: req.user.postNum + 1 }
   })
 
-  User.findByIdAndUpdate(req.user._id,{$set:{postNum: req.user.postNum + 1}
-  })
-
-  // if (User.find(req.user._id))
+    // if (User.find(req.user._id))
     .then(postNew => {
       res.redirect("/post-list");
     })
@@ -209,7 +217,7 @@ router.get("/post-detail/:id", (req, res, next) => {
       // ) {
       //   postDetails.youAreTheOwnerOfThisPost = true;
       // }
-    
+
       console.log(postDetails);
       res.render("post-details", postDetails);
     })
@@ -234,24 +242,29 @@ router.get("/animal-list", (req, res, next) => {
     });
 });
 
-router.get("/create-comment/", (req, res, next) => {
-  Comment.find()
-    .populate("authorId")
-    .populate("comments");
-  res.render("create-comment");
+router.get("/create-comment/:id", (req, res, next) => {
+  Post.findById({ _id: req.params.id })
+    .then(foundPost => {
+      res.render("create-comment", foundPost);
+    });
 });
 // ensureLogin.ensureLoggedIn(),
-router.post("/create-comment", (req, res, next) => {
+router.post("/create-comment-post/:id", (req, res, next) => {
+  let postId = req.params.id
+  console.log(postId)
   Comment.create(
     {
       authorId: req.user._id,
-      title: req.body.title,
       content: req.body.content
     },
     { new: true }
   )
+    .then(createdComment => {
+      console.log(req.params.id)
+      Post.findByIdAndUpdate({ _id: req.params.id }).populate("comments");
+    })
     .then(postNew => {
-      res.redirect("/create-comment");
+      res.redirect(`/post-details/${postNew._id}`);
     })
     .catch(err => {
       console.log(err);
@@ -262,8 +275,5 @@ router.get("/map", (req, res, next) => {
     res.render("map", animal);
   });
 });
-
-
-
 
 module.exports = router;
