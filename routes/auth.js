@@ -10,6 +10,7 @@ const uploadCloud = require("../config/cloudinary.js");
 const bcrypt = require("bcrypt");
 const bcryptSalt = 10;
 const multer = require("multer");
+const nodemailer = require("nodemailer"); //// nodemailer
 
 
 router.get("/login", (req, res, next) => {
@@ -35,8 +36,7 @@ router.post("/signup", uploadCloud.single("picture"), (req, res, next) => {
   const password = req.body.password;
   const imageAvatar = req.file.url;
   const imageAvName = req.file.filename;
-
-
+  
   if (username === "" || password === "") {
     res.render("auth/signup", { message: "Indicate username and password" });
     return;
@@ -69,6 +69,8 @@ router.post("/signup", uploadCloud.single("picture"), (req, res, next) => {
         res.render("auth/signup", { message: "Something went wrong" });
       });
   });
+});
+
 
 
 router.get("/logout", (req, res) => {
@@ -101,6 +103,4 @@ router.get("/random", (req, res) => {
 });
 });
 
-
 module.exports = router;
-
