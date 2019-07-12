@@ -16,6 +16,7 @@ const ExifImage = require("exif").ExifImage;
 const ensureLogin = require("connect-ensure-login");
 const uploadCloud = require("../config/cloudinary.js");
 const multer = require("multer");
+const dms2dec = require("dms2dec");
 // const nodemailer = require("nodemailer")
 
 /* GET home page */
@@ -130,37 +131,69 @@ router.get("/post-list", (req, res, next) => {
 });
 
 router.post("/post-list", uploadCloud.single("image"), (req, res, next) => {
-  Post.create({
-    authorId: req.user._id,
-    title: req.body.title,
-    content: req.body.content,
-    postImg: req.file.url
-  });
+  var request = require("request").defaults({ encoding: null });
+  request.get(req.file.url, function(err, res2, body) {
+    try {
+      new ExifImage(body, function(error, exifData) {
+        let coordinates;
 
-  Animal.create({
-    name: req.body.animal,
-    description: req.body.description,
-    animalImg: {
-      url: req.file.url,
-      originalName: req.file.url
-    },
-    location: {
-      type: "Point",
-      coordinates: [+req.body.lng, +req.body.lat]
+        if (error) {
+          coordinates = [+req.body.lng, +req.body.lat];
+          console.log("Error: " + error.message);
+        } else {
+          if (exifData.gps.GPSLatitudeRef) {
+            var dec = dms2dec(
+              exifData.gps.GPSLatitude,
+              exifData.gps.GPSLatitudeRef,
+              exifData.gps.GPSLongitude,
+              exifData.gps.GPSLongitudeRef
+            );
+
+            coordinates = [+dec[1], +dec[0]];
+          } else {
+            coordinates = [+req.body.lng, +req.body.lat];
+          }
+        }
+
+        console.log("coordinates ==========" + "*".repeat(100));
+        console.log(coordinates);
+
+        Post.create({
+          authorId: req.user._id,
+          title: req.body.title,
+          content: req.body.content,
+          postImg: req.file.url
+        });
+
+        Animal.create({
+          name: req.body.animal,
+          description: req.body.description,
+          animalImg: {
+            url: req.file.url,
+            originalName: req.file.url
+          },
+          location: {
+            type: "Point",
+            coordinates: coordinates
+          }
+        });
+
+        User.findByIdAndUpdate(req.user._id, {
+          $set: { postNum: req.user.postNum + 1 }
+        })
+
+          // if (User.find(req.user._id))
+          .then(postNew => {
+            res.redirect("/post-list");
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      });
+    } catch (error) {
+      console.log("Error: " + error.message);
     }
   });
-
-  User.findByIdAndUpdate(req.user._id, {
-    $set: { postNum: req.user.postNum + 1 }
-  })
-
-    // if (User.find(req.user._id))
-    .then(postNew => {
-      res.redirect("/post-list");
-    })
-    .catch(err => {
-      console.log(err);
-    });
 });
 
 router.get("/edit-post/:id", ensureLogin.ensureLoggedIn(), (req, res, next) => {
@@ -226,13 +259,10 @@ router.get("/post-detail/:id", (req, res, next) => {
     });
 });
 
+router.delete("/deletePost/:id", (req, res) => {
+  Post.findByIdAndDelete(req.params.id).then(x => res.json({ removed: true }));
+});
 
-
-
-router.delete("/deletePost/:id", (req, res) =>{
-  Post.findByIdAndDelete(req.params.id)
-  .then(x => res.json({removed: true} ))
-}  )
 
 router.post("/post-detail/:id/delete", (req, res) => {
   Post.findByIdAndRemove({ _id: req.params.id }, (err, post) => {
@@ -259,36 +289,36 @@ router.get("/create-comment/:id", (req, res, next) => {
 router.post("/create-comment-post/:id", (req, res, next) => {
   let postId = req.params.id;
   console.log(postId);
-  return Comment.create(
-    {
-      authorId: req.user._id,
-      content: req.body.content
-    }  )
-    .then(createdComment => {
-      console.log(req.params.id);
-      console.log('llllllll'+createdComment._id);
-      Post.findByIdAndUpdate(
-        req.params.id ,
-        {
-        $push:{comments:createdComment._id}
-        }, {
-          new: true
-        } 
-      ).then(postNew => {
+  return Comment.create({
+    authorId: req.user._id,
+    content: req.body.content
+  }).then(createdComment => {
+    console.log(req.params.id);
+    console.log("llllllll" + createdComment._id);
+    Post.findByIdAndUpdate(
+      req.params.id,
+      {
+        $push: { comments: createdComment._id }
+      },
+      {
+        new: true
+      }
+    )
+      .then(postNew => {
         console.log(postNew);
         res.redirect(`/post-detail/${postNew._id}`);
       })
       .catch(err => {
         console.log(err);
       });
-    })
-    // .then(postNew => {
-    //   console.log(postNew);
-    //   res.redirect(`/post-details/${postNew._id}`);
-    // })
-    // .catch(err => {
-    //   console.log(err);
-    // });
+  });
+  // .then(postNew => {
+  //   console.log(postNew);
+  //   res.redirect(`/post-details/${postNew._id}`);
+  // })
+  // .catch(err => {
+  //   console.log(err);
+  // });
 });
 router.get("/map", (req, res, next) => {
   Animal.find().then(animal => {
