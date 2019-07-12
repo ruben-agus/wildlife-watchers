@@ -17,7 +17,7 @@ const ExifImage = require('exif').ExifImage;
 const ensureLogin = require("connect-ensure-login");
 const uploadCloud = require("../config/cloudinary.js");
 const multer = require("multer");
-const nodemailer = require("nodemailer")
+// const nodemailer = require("nodemailer")
 
 /* GET home page */
 
@@ -202,12 +202,13 @@ router.get("/post-detail/:id", (req, res, next) => {
     })
 
     .then(postDetails => {
-      if (
-        req.session.passport.user.toString() ===
-        postDetails.authorId._id.toString()
-      ) {
-        postDetails.youAreTheOwnerOfThisPost = true;
-      }
+      // if (
+      //   req.session.passport.user.toString() ===
+      //   postDetails.authorId._id.toString()
+      // ) {
+      //   postDetails.youAreTheOwnerOfThisPost = true;
+      // }
+    
       console.log(postDetails);
       res.render("post-details", postDetails);
     })

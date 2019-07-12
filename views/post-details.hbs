@@ -2,7 +2,7 @@
 
 
     <div class="post-detail-flexbox-row">
-        <h2>POST DEL FORO</h2>
+        <h2 class="post-title">POST DEL FORO</h2>
         {{#if youAreTheOwnerOfThisPost}}
         <a href="/edit-post/{{this._id}}">
             <button>Edit my post</button>
@@ -25,10 +25,10 @@
 
 
 
-    <div>
+    <div> 
         <div>
-            <a href="/create-comment">
-                <button>Create Comment</button>
+            <a href="/create-comment" >
+                <button class="btn-confirm">Create Comment</button>
             </a>
         </div>
         {{#each comments}}
