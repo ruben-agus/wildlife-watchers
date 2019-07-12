@@ -3,17 +3,17 @@
     <form action="/post-list" method="POST" id="" enctype="multipart/form-data">
       <div class="flexbox-row">
         <div class="auth-wrapper-label"><label for="title">Título del post</label></div>
-        <input type="text" name="title" placeholder="Da un título a tu post" value="title">
+        <input type="text" name="title" placeholder="Da un título a tu post" value="">
       </div>
 
       <div class="flexbox-row">
-        <textarea cols="63" rows="8" name="content" value="content"
+        <textarea cols="63" rows="8" name="content" value=""
           placeholder="Describe cuando, cómo y dónde obtuviste esta foto. O pon el mensaje que te dé la gana, soy un placeholder, no el FBI."></textarea>
       </div>
 
       <div class="flexbox-row">
         <div class="auth-wrapper-label"><label for="animal">Nombre del animal</label></div>
-        <input type="text" name="animal" placeholder="Cotorra vulgar, mejillón zebra..." value="animal">
+        <input type="text" name="animal" placeholder="Cotorra vulgar, mejillón zebra..." value="">
       </div>
 
 
@@ -24,7 +24,7 @@
 
       <div class="flexbox-row">
         <div class="auth-wrapper-label"><label for="animal">Imagen del animal</label></div>
-        <input type="file" name="image">
+        <input type="file" name="image" class="btn-subir">
       </div>
 
       <div class="flexbox-row">
@@ -34,7 +34,7 @@
       <input id="lat" type="text" name="lat">
       <input id="lng" type="text" name="lng">
 
-      <button type='submit'>Crear Post</button>
+      <button type='submit' class="btn-confirm" >Crear Post</button>
     </form>
   </div>
 
