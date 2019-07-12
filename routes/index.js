@@ -221,8 +221,7 @@ router.post(
         content: req.body.content,
         postImg: req.file.url
       },
-      { new: true }
-    )
+      )
       .then(editedPost => {
         res.redirect("/post-list");
       })
