@@ -323,8 +323,12 @@ nav div {
   padding-top: 2rem; }
 
 #map {
-  width: 70vw;
-  height: 70vh; }
+  margin-top: 0.6rem;
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100vw;
+  height: 80vh; }
 
 #map h1 {
   margin: 1rem 0rem;
