@@ -226,6 +226,9 @@ router.get("/post-detail/:id", (req, res, next) => {
     });
 });
 
+
+
+
 router.delete("/deletePost/:id", (req, res) =>{
   Post.findByIdAndDelete(req.params.id)
   .then(x => res.json({removed: true} ))
