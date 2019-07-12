@@ -243,32 +243,44 @@ router.get("/animal-list", (req, res, next) => {
 });
 
 router.get("/create-comment/:id", (req, res, next) => {
-  Post.findById({ _id: req.params.id })
-    .then(foundPost => {
-      res.render("create-comment", foundPost);
-    });
+  Post.findById({ _id: req.params.id }).then(foundPost => {
+    res.render("create-comment", foundPost);
+  });
 });
 // ensureLogin.ensureLoggedIn(),
 router.post("/create-comment-post/:id", (req, res, next) => {
-  let postId = req.params.id
-  console.log(postId)
-  Comment.create(
+  let postId = req.params.id;
+  console.log(postId);
+  return Comment.create(
     {
       authorId: req.user._id,
       content: req.body.content
-    },
-    { new: true }
-  )
+    }  )
     .then(createdComment => {
-      console.log(req.params.id)
-      Post.findByIdAndUpdate({ _id: req.params.id }).populate("comments");
+      console.log(req.params.id);
+      console.log('llllllll'+createdComment._id);
+      Post.findByIdAndUpdate(
+        req.params.id ,
+        {
+        $push:{comments:createdComment._id}
+        }, {
+          new: true
+        } 
+      ).then(postNew => {
+        console.log(postNew);
+        res.redirect(`/post-detail/${postNew._id}`);
+      })
+      .catch(err => {
+        console.log(err);
+      });
     })
-    .then(postNew => {
-      res.redirect(`/post-details/${postNew._id}`);
-    })
-    .catch(err => {
-      console.log(err);
-    });
+    // .then(postNew => {
+    //   console.log(postNew);
+    //   res.redirect(`/post-details/${postNew._id}`);
+    // })
+    // .catch(err => {
+    //   console.log(err);
+    // });
 });
 router.get("/map", (req, res, next) => {
   Animal.find().then(animal => {
