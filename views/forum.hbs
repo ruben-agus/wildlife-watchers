@@ -14,12 +14,9 @@
   {{#each post}}
   <ul>
     <li>
-      <h3><a href="/post-detail/{{this._id}}">{{this.title}}</a></h3>
+     <a href="/post-detail/{{this._id}}">{{this.title}}
     </li>
-    <li>
-      <h4>{{this.content}}</h4>
-    </li>
-    <li><img src="{{this.postImg}}" alt=""></li>
+    <li><img src="{{this.postImg}}" alt=""></li></a>
   </ul>
   {{/each}}
 </div>
