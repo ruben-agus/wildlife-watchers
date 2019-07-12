@@ -1,4 +1,4 @@
-<div class="auth-wrapper">
+{{!-- <div class="auth-wrapper">
   <h2>CREA UN COMENTARIO</h2>
 <form action="/create-comment" method="POST" id="form-container">
 
@@ -19,7 +19,29 @@
    </div>
   </div>
 
-  <button type='submit' class="btn-confirm">Create Comment</button>
 
 </form>
-</div>
+</div> --}}
+
+
+<div class="auth-wrapper">
+  <h2>Crea un nuevo comentario</h2>
+
+  <form action="/create-comment" method="POST" id="form-container">
+    
+    <div class="flexbox-row">
+      <div class="auth-wrapper-label">
+        <label for="username">Título del Comentario</label>
+        </div>
+      <input id="username" type="text" name="username" placeholder="Da título a tu comentario">
+    </div>
+
+    <div class="flexbox-row">
+      <div class="auth-wrapper-label">
+        <label for="password">Escribe aquí tu comentario</label>
+        </div>
+      <input id="password" type="text" name="Contenido-comentario" placeholder="Tu comentario, aquí">
+    </div>
+
+  <button type='submit'  class="btn-confirm-comment">Create Comment</button>
+    
