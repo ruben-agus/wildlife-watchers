@@ -162,8 +162,15 @@ nav div {
   margin-bottom: 0.7rem;
   font-size: 1.2rem; }
 
-#lng, #lat {
+#lng, #lat, #myvideo {
   display: none; }
+
+.myvideo {
+  display: none; }
+
+.appear {
+  display: block;
+  z-index: 999; }
 
 .post-title h3 {
   font-size: 1.5rem;
