@@ -1,42 +1,48 @@
-<form action="/post-list" method="POST" id="" enctype="multipart/form-data">
+<div class="auth-wrapper flexbox-row">
+  <div class="flexbox-column">
+    <form action="/post-list" method="POST" id="" enctype="multipart/form-data">
+      <div class="flexbox-row">
+        <div class="auth-wrapper-label"><label for="title">Título del post</label></div>
+        <input type="text" name="title" placeholder="Da un título a tu post" value="title">
+      </div>
 
-  <label>Crear Post</label>
-  <input type="text" name="title" placeholder="Da un título a tu post " value="title">
-  <input type="text" name="content" value="content" placeholder="Describe cuando, cómo y dónde obtuviste esta foto">
-  <input type="file" name="image" id="">
+      <div class="flexbox-row">
+        <textarea cols="63" rows="8" name="content" value="content"
+          placeholder="Describe cuando, cómo y dónde obtuviste esta foto. O pon el mensaje que te dé la gana, soy un placeholder, no el FBI."></textarea>
+      </div>
 
-  <input id="lat" type="text" name="lat">
-    <input id="lng" type="text" name="lng">
-
-    <p class="lat"></p>
-
-  <button type='submit'>Crear Post</button>
-</form>
+      <div class="flexbox-row">
+        <div class="auth-wrapper-label"><label for="animal">Nombre del animal</label></div>
+        <input type="text" name="animal" placeholder="Cotorra vulgar, mejillón zebra..." value="animal">
+      </div>
 
 
-<div id="choose-map"></div>
+      <div class="flexbox-row">
+        <textarea cols="63" rows="8" name="description" value="description"
+          placeholder="¿Qué nos puedes contar de este animal?"></textarea>
+      </div>
 
-{{!-- 
-<form action="/movie-creation" method="POST" enctype="multipart/form-data" id="movie-creation">
-  <div class="form-elements-wrapper">
-    <div class="form-elements">
-      <input type="text" name="name" placeholder="name" value="test">
-      <input type="text" name="year" placeholder="year" value="1999">
-      <input type="text" name="linkIMDB" placeholder="linkIMDB"
-        value="https://www.imdb.com/title/tt0091605/?ref_=fn_al_tt_2">
-      <input type="file" name="photo">
-      <input type="text" name="city" placeholder="city" value="new york">
-      <input type="text" name="country" placeholder="country" value="US">
-      <button id="save-movie">Save new movie</button>
-    </div>
+      <div class="flexbox-row">
+        <div class="auth-wrapper-label"><label for="animal">Imagen del animal</label></div>
+        <input type="file" name="image">
+      </div>
 
-    <div class="map-wrapper">
-      <input type="text" id="search-box">
-      <div id="map"></div>
-    </div>
+      <div class="flexbox-row">
+        <div class="auth-wrapper-label" style="width: 40rem"><label for="location">Para finalizar, haz click en el punto en el que encontraste a este animal usando el mapa</label></div>
+      </div>
+
+      <input id="lat" type="text" name="lat">
+      <input id="lng" type="text" name="lng">
+
+      <button type='submit'>Crear Post</button>
+    </form>
   </div>
-</form> --}}
 
+
+  <div style="width: 50vw" id="choose-map">
+
+  </div>
+</div>
 
 
 
