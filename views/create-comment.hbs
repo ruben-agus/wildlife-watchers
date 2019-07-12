@@ -1,8 +1,47 @@
-CREA UN COMENTARIO
-<form action="/create-comment" method="POST" id="">
+{{!-- <div class="auth-wrapper">
+  <h2>CREA UN COMENTARIO</h2>
+<form action="/create-comment" method="POST" id="form-container">
 
-  <label>Crear Post</label>
-  <input type="text" name="title" placeholder="Da un título a tu post " value="title">
-  <input type="text" name="content" value="content" placeholder="Describe cuando, cómo y dónde obtuviste esta foto">
-  <button type='submit'>Create Comment</button>
+   <div class="flexbox-row">
+    <div class="auth-wrapper-label">
+      <label >Título del Comentario</label>
+      <input id="username" type="text" name="title" placeholder="Da un título a tu post " value="title">
+    </div>
+  </div>
+ 
+ 
+ 
+   <div class="flexbox-row">
+      <div class="auth-wrapper-label">
+        <label>Escribe aquí tu cmentario</label>
+      <input  id="password" type="text" name="content" value="content" 
+     placeholder="Comentario">
+   </div>
+  </div>
+
+
 </form>
+</div> --}}
+
+
+<div class="auth-wrapper">
+  <h2>Crea un nuevo comentario</h2>
+
+  <form action="/create-comment" method="POST" id="form-container">
+    
+    <div class="flexbox-row">
+      <div class="auth-wrapper-label">
+        <label for="username">Título del Comentario</label>
+        </div>
+      <input id="username" type="text" name="username" placeholder="Da título a tu comentario">
+    </div>
+
+    <div class="flexbox-row">
+      <div class="auth-wrapper-label">
+        <label for="password">Escribe aquí tu comentario</label>
+        </div>
+      <input id="password" type="text" name="Contenido-comentario" placeholder="Tu comentario, aquí">
+    </div>
+
+  <button type='submit'  class="btn-confirm-comment">Create Comment</button>
+    

@@ -18,8 +18,8 @@ const userSchema = new Schema(
       type: Number,
       default: 0
     },
-    confirmationCode: [{ type: String }, { unique: true }], // nodemailer
-    email: String //nodemailer
+    // confirmationCode: [{ type: String }, { unique: true }], // nodemailer
+    // email: String //nodemailer
   },
   {
     timestamps: {

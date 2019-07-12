@@ -31,6 +31,12 @@ button {
   color: #b3dfff;
   max-width: 15rem; }
 
+.btn-confirm-comment {
+  background-color: #006e2e;
+  color: #b3dfff;
+  max-width: 15rem;
+  margin-top: 2.5rem; }
+
 nav {
   display: flex;
   flex-direction: row;
@@ -111,8 +117,7 @@ nav div {
   align-items: center; }
 
 .background-index {
-  background-image: url("../images/otoño.jpg");
-  background-color: transparent; }
+  background: url("../images/otoño.jpg"); }
 
 .home-wrapper {
   display: flex;
@@ -296,6 +301,9 @@ nav div {
   flex-direction: column;
   align-items: center;
   justify-content: center; }
+
+.padding {
+  padding-top: 2rem; }
 
 #map {
   width: 70vw;
