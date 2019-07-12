@@ -133,6 +133,7 @@ router.post("/post-list", uploadCloud.single("image"), (req, res, next) => {
 
   Animal.create({
     name: req.body.animal,
+    description: req.body.description,
     animalImg:{
       url: req.file.url,
       originalName: req.file.url

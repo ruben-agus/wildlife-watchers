@@ -142,11 +142,10 @@ nav div {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  border: 1px solid black;
-  border-radius: 10px;
+  justify-content: flex-start;
   padding: 1rem;
-  width: 25vw; }
+  width: 25vw;
+  margin: 0.75rem; }
 
 .post-collection h2 {
   font-size: 2rem;
@@ -154,9 +153,10 @@ nav div {
   margin-bottom: 2rem; }
 
 .post-preview img {
-  width: 15rem;
+  width: 25rem;
   margin-bottom: 1.5rem;
-  border-radius: 2rem; }
+  border-radius: 2rem;
+  margin: 1.5rem; }
 
 .post-title {
   margin-bottom: 0.7rem;
@@ -237,6 +237,14 @@ nav div {
   text-decoration: none;
   color: black; }
 
+.none-decoration {
+  text-decoration: none;
+  color: black;
+  font-size: 2.2rem; }
+
+.index-post-author {
+  font-size: 1.4rem; }
+
 .container {
   display: flex;
   flex-direction: column;
@@ -247,8 +255,6 @@ nav div {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 1px solid black;
-  border-radius: 10px;
   padding: 20px;
   width: 100rem;
   margin: 2rem; }
@@ -257,11 +263,12 @@ nav div {
   font-size: 3.5rem;
   text-align: center; }
 
-.post-details-view h2 {
+.post-details-view p {
   font-size: 2.5rem; }
 
 .post-details-content {
-  width: 250px;
+  width: 70vw;
+  height: 40hw;
   margin-bottom: 1.5rem;
   border-radius: 2rem;
   display: flex;
@@ -270,7 +277,9 @@ nav div {
 
 .post-details-content img {
   width: 100rem;
-  height: 70rem; }
+  height: 70rem;
+  border-radius: 2rem;
+  padding: 1.5rem; }
 
 .border {
   border: 2px solid black; }
