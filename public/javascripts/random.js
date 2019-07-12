@@ -10,7 +10,7 @@ axios.get("/auth/random").then(JSONPayload => {
   // randomImg.innerHTML = ``;
   // randomName.innerHTML = ``;
   // randomText.innerHTML = ``;
-  randomImg.innerHTML = `<img src="${JSONPayload.data.animalImg}">`;
+  randomImg.innerHTML = `<img class="normalize" src="${JSONPayload.data.animalImg}">`;
   randomName.innerHTML = `${JSONPayload.data.name}`;
   randomText.innerHTML = `${JSONPayload.data.description}`;
 });

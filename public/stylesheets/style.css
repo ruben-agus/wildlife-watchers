@@ -1,12 +1,13 @@
-@charset "UTF-8";
 * {
   box-sizing: border-box; }
 
-html,
-body {
+html {
   margin: 0;
   padding: 0;
   font: 10px "Lucida Grande", Helvetica, Arial, sans-serif; }
+
+body {
+  height: 100vh; }
 
 .flexbox-row {
   display: flex;
@@ -17,6 +18,10 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: baseline; }
+
+section .random-animal-photo img {
+  width: 100%;
+  height: 70rem; }
 
 button {
   border-radius: 1rem;
@@ -43,15 +48,14 @@ nav {
   justify-content: space-between;
   align-items: center;
   font-size: 2rem;
-  height: 70px;
-  padding: 25px;
+  height: 7rem;
+  padding: 2.5rem;
   font-weight: bold;
   background: #006e2e;
   background: -moz-linear-gradient(left, #006e2e 0%, #106b34 30%, #1f683b 50%, #28663f 75%);
   background: -webkit-linear-gradient(left, #006e2e 0%, #106b34 30%, #1f683b 50%, #28663f 75%);
   background: linear-gradient(to right, #006e2e 0%, #106b34 30%, #1f683b 50%, #28663f 75%);
-  box-shadow: 0 6px 2px -2px gray;
-  margin-bottom: 1.5rem; }
+  box-shadow: 0 6px 2px -2px gray; }
 
 nav ul {
   display: flex;
@@ -117,7 +121,7 @@ nav div {
   align-items: center; }
 
 .background-index {
-  background: url("../images/otoño.jpg"); }
+  background: rgba(157, 212, 157, 0.603); }
 
 .home-wrapper {
   display: flex;
