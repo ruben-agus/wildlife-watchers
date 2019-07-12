@@ -3,29 +3,28 @@ const passport = require("passport");
 const router = express.Router();
 const User = require("../models/User");
 const Animal = require("../models/Animal");
+const Random = require("../models/Random");
+
 const uploadCloud = require("../config/cloudinary.js");
 // Bcrypt to encrypt passwords
 const bcrypt = require("bcrypt");
 const bcryptSalt = 10;
 const multer = require("multer");
-const nodemailer = require("nodemailer") //// nodemailer
+const nodemailer = require("nodemailer"); //// nodemailer
 
 ////////NODEMAILER abajo enter
-router.post('/send-email', (req, res, next) => {
+router.post("/send-email", (req, res, next) => {
   let { email, subject, message } = req.body;
-  res.render('message', { email, subject, message })
+  res.render("message", { email, subject, message });
 });
-                      let transporter = nodemailer.createTransport({
-                        service: 'Gmail',
-                        auth: {
-                          user: 'acpironhack@gmail.com',
-                          pass: 'ironagus12agus12' 
-                        }
-                      });
+let transporter = nodemailer.createTransport({
+  service: "Gmail",
+  auth: {
+    user: "acpironhack@gmail.com",
+    pass: "ironagus12agus12"
+  }
+});
 /////////////
-
-
-
 
 router.get("/login", (req, res, next) => {
   res.render("auth/login", { message: req.flash("error") });
@@ -52,9 +51,10 @@ router.post("/signup", uploadCloud.single("picture"), (req, res, next) => {
   const imageAvName = req.file.filename;
   //////nodemailer abajo hasta la siguiente /////
   const email = req.body.email;
-  
-  const characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  let token = '';
+
+  const characters =
+    "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  let token = "";
   for (let i = 0; i < 25; i++) {
     token += characters[Math.floor(Math.random() * characters.length)];
   }
@@ -73,54 +73,58 @@ router.post("/signup", uploadCloud.single("picture"), (req, res, next) => {
 
     const salt = bcrypt.genSaltSync(bcryptSalt);
     const hashPass = bcrypt.hashSync(password, salt);
-    
+
     const newUser = new User({
       username,
       password: hashPass,
-      email: email,///////nodemailer
+      email: email, ///////nodemailer
       confirmationCode: token, ///////nodemailer
       picture: {
         url: imageAvatar,
         originalName: imageAvName
       }
     });
-    
+
     newUser
-    .save()
-    .then(() => {
-      //////nodemailer hacia abajo hasta ////
-            transporter.sendMail({
-              from: '"My Awesome Project 👻" <acpironhack@gmail.com',
-              to: email, 
-              subject: 'Awesome Subject', 
-              text: 'Awesome Message',
-              html: '<b>Please Confirm you e-mail</b>'
-            })
-            .then(info => console.log(info))
-            .catch(error => console.log(error))
+      .save()
+      .then(() => {
+        //////nodemailer hacia abajo hasta ////
+        transporter
+          .sendMail({
+            from: '"My Awesome Project 👻" <acpironhack@gmail.com',
+            to: email,
+            subject: "Awesome Subject",
+            text: "Awesome Message",
+            html: "<b>Please Confirm you e-mail</b>"
+          })
+          .then(info => console.log(info))
+          .catch(error => console.log(error));
         //////nodemailer hacia arriba
         res.redirect("/auth/login");
       })
       .catch(err => {
         res.render("auth/signup", { message: "Something went wrong" });
       });
-    });
+  });
 });
 
 ///////////nodemailehacia abajo
 router.get("/confirm/:token", (req, res) => {
   let token = req.params.token;
-  User
-      .findOneAndUpdate({ confirmationCode: req.params.token }, { $set: { status: "Active" } }, { new: true })
-      .then((user) => {
-          console.log("User Activated");
-          res.redirect("/auth/login")
-      }).catch((err) => {
-          console.log(err);
-      })
+  User.findOneAndUpdate(
+    { confirmationCode: req.params.token },
+    { $set: { status: "Active" } },
+    { new: true }
+  )
+    .then(user => {
+      console.log("User Activated");
+      res.redirect("/auth/login");
+    })
+    .catch(err => {
+      console.log(err);
+    });
 });
 /////////nodemailerhacia arriba /////
-
 
 router.get("/logout", (req, res) => {
   req.logout();
@@ -131,6 +135,25 @@ router.get("/json", (req, res) => {
   Animal.find().then(JSONPayLoad => {
     res.json(JSONPayLoad);
   });
+});
+
+router.get("/random", (req, res) => {
+  // Random.find().then(JSONPayLoad => {
+  //   res.json(JSONPayLoad)
+  // });
+
+  Random.count().exec(function (err, count) {
+
+    // Get a random entry
+    var random = Math.floor(Math.random() * count)
+    console.log(count)
+  
+    // Again query all users but only fetch one offset by our random #
+    Random.findOne().skip(random).exec(
+      function (err, result) {
+      res.json(result)
+    });
+});
 });
 
 module.exports = router;
