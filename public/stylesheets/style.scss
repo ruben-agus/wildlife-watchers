@@ -276,14 +276,15 @@ margin-bottom: 1.5rem;
   justify-content: space-around;
 }
 .forum-wrapper ul {
-  padding: 1rem;
+  padding: 1.5rem;
+  text-align: center;
 }
 
 .forum-wrapper img {
-  width: 15rem;
-  height: 15rem;
-  margin-bottom: 1.5rem;
-  border-radius: 2rem;
+  width: 25rem;
+  height: 25rem;
+  margin-bottom: 2rem;
+  border-radius: 2.5rem;
 }
 
 .forum-wrapper h3 {
@@ -293,7 +294,7 @@ margin-bottom: 1.5rem;
 }
 
 .forum-wrapper h4 {
-  font-size: 1rem;
+  font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 0.7rem;
 }
@@ -301,6 +302,8 @@ margin-bottom: 1.5rem;
 .forum-wrapper a {
   text-decoration: none;
   color: black;
+  font-size: 2rem;
+  font-weight: bold;
 }
 
 .none-decoration {
