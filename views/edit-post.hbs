@@ -1,9 +1,27 @@
-<form action="/edit-post/{{this.postDetail._id}}" method="POST" enctype="multipart/form-data" id="form-container">
-  {{!-- {{postDetail._id}} --}}
-  <label>Editar Post</label>
-  <input type="text" name="title" value="{{this.postDetail.title}}">
-  <input type="text" name="content" value="{{this.postDetail.content}}">
-  <input type="file" name="postImage" value="{{this.postDetail.postImg}}">
+<div class"auth-wrapper"=>
 
-  <button type='submit'>Editar post</button>
-</form>
+  <form action="/edit-post/{{this.postDetail._id}}" method="POST" id="form-container">
+    <div class="flexbox-row">
+      <div class="auth-wrapper-label">
+        <label>Edita tu Post</label>
+      </div>
+      <input type="text" name="title" value="{{this.postDetail.title}}">
+    </div>
+
+    <div class="flexbox-row">
+      <div class="auth-wrapper-label">
+        <label>Edita tu Post</label>
+      </div>
+      <input type="text" name="content" value="{{this.postDetail.content}}">
+    </div>
+
+    <div class="flexbox-row">
+      <div class="auth-wrapper-label">
+        <label>Edita tu Post</label>
+      </div>
+      <button type='submit'>Editar post</button>
+    </div>
+
+  </form>
+</div>
+
